@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-mdwosp)3xe*mljqo70d#7psb6tws#!okckoawfq#839lwt_xmv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '8000-herbiejames-arcadecapst-3wroz1x5a6v.ws.codeinstitute-ide.net',
