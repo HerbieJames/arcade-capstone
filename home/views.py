@@ -4,4 +4,4 @@ from django.shortcuts import render
 # Create your views here.
 
 def index(request):
-    return HttpResponse("home")
+    return HttpResponse("<i style='color: blue; text-align: center;'>home</i>")
