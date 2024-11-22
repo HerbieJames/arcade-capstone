@@ -31,6 +31,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     '8000-herbiejames-arcadecapst-3wroz1x5a6v.ws.codeinstitute-ide.net',
+    '8000-herbiejames-arcadecapst-qmvb5tg7ijb.ws.codeinstitute-ide.net',
     '.herokuapp.com',
 ]
 
@@ -44,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'home'
+    'home',
+    'game',
 ]
 
 MIDDLEWARE = [

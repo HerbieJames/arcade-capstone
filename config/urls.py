@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from home import views as index_views
+from game import views as game_views
 
 urlpatterns = [
     path('', index_views.index, name="home"),
+    path('game/', game_views.machine, name="games"),
     path('admin/', admin.site.urls),
 ]
