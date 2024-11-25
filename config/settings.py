@@ -30,7 +30,6 @@ SECRET_KEY = 'django-insecure-mdwosp)3xe*mljqo70d#7psb6tws#!okckoawfq#839lwt_xmv
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '8000-herbiejames-arcadecapst-3wroz1x5a6v.ws.codeinstitute-ide.net',
     '8000-herbiejames-arcadecapst-qmvb5tg7ijb.ws.codeinstitute-ide.net',
     '.herokuapp.com',
 ]
