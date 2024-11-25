@@ -88,6 +88,10 @@ main {
     font-size:xx-large;
 }
 
+#scoreEl {
+    font-size: 32px;
+}
+
 #gameControllerEl {
     display: flex;
     flex-flow: row;
