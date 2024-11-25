@@ -9,6 +9,7 @@ let tick = 0;
  */
 function startUp() {
     if (active == false) {
+        active = true;
         startBtnEl.style.display = "none";
         var txt = document.createElement('p');
         txt.style.color = "white";
