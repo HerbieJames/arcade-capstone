@@ -75,8 +75,14 @@ main {
     display: flex;
 }
 
-.game-pad {
-    height: 128px;
+#gameDisplayEl {
+    height: 384px;
+    width:  384px;
+    margin: auto;
+    display: grid;
+    grid-template-rows:    32px 32px 32px 32px 32px 32px 32px 32px 32px 32px 32px 32px;
+    grid-template-columns: 32px 32px 32px 32px 32px 32px 32px 32px 32px 32px 32px 32px;
+    background-color: black;
 }
 
 #startBtnEl {
@@ -90,6 +96,16 @@ main {
 
 #scoreEl {
     font-size: 32px;
+}
+
+.sprite {
+    image-rendering: pixelated;
+    height: 32px;
+    width: 32px;
+}
+
+.game-pad {
+    height: 128px;
 }
 
 #gameControllerEl {
