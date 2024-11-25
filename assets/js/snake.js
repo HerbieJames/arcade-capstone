@@ -6,13 +6,21 @@ const gridX      = 12;
 const gridY      = 12;
 const gridXinit  = 1;
 const gridYinit  = 2;
+const playSpawnX = gridX-1;
+const playSpawnY = gridY/2;
 const imgRoot    = "./assets/images_snake/";
 let playerImg = "snake1head1.png";
 let player;
+let tail;
+let snakeBody = [];
 let active    = false;
 let tick      = 0;
 
 //--SNAKE DECLARATIONS--
+const upBtnEl    = document.getElementById("btnUpEl");
+const downBtnEl  = document.getElementById("btnDownEl");
+const leftBtnEl  = document.getElementById("btnLeftEl");
+const rightBtnEl = document.getElementById("btnRightEl");
 let playerDir = [-1,0];
 
 // FUNCTIONS
@@ -110,9 +118,10 @@ function getSpriteXY(element) {
 }
 
 /**Moves a given element on the grid a specified distance and updates their position in the DOM.
- * @param {Element} element the target HTML element
- * @param {Number}  x       row distance where positive is right
- * @param {Number}  y       column distance where posititve is down
+ * @param {Element}  element the target HTML element
+ * @param  {Number}  x       row distance where positive is right
+ * @param  {Number}  y       column distance where posititve is down
+ * @return {Object}          the new ".x", ".y" values.
 */
 function moveSprite(element, x, y) {
     var currentX = element.style.gridColumn;
@@ -120,12 +129,25 @@ function moveSprite(element, x, y) {
     var targetX  = currentX - -x;
     var targetY  = currentY - -y;
     var neighbor;
-    if (targetX < gridXinit) { targetX = gridX }
-    if (targetY < gridYinit) { targetY = gridY }
+    if (targetX < gridXinit) { targetX = gridX; }
+    if (targetY < gridYinit) { targetY = gridY; }
     element.style.gridColumn = targetX;
     element.style.gridrow    = targetY;
     neighbor = nearestTile(targetX, targetY);
     if (neighbor != undefined) { neighbor.before(element); }
+    return {x: targetX, y: targetY}
+}
+
+/**Sets the co-ordiated of a given element on the grid and updates their position in the DOM.
+ * @param {Element} element the target HTML element
+ * @param {Number}  x       row position of element in grid
+ * @param {Number}  y       column position of element in grid
+*/
+function setSpriteXY(element, x, y) {
+    var neighbor = nearestTile(x,y);
+    if (neighbor != undefined) { neighbor.before(element); }
+    element.style.gridColumn = x;
+    element.style.gridRow = y;
 }
 
 /**Initializes level by initializing tile sprites into each row
@@ -141,8 +163,9 @@ function initLevel() {
 /**Creates a sprite with id "player" and src playerImg.
  */
 function initPlayer() {
-    initSprite(gridX, gridY/2, playerImg, null, "player");
-    player = document.getElementById("player");
+    player = initSprite(playSpawnX, playSpawnY, playerImg, null, "player");
+    tail = initSprite(playSpawnX+1, playSpawnY, "snake1tail1.png", ["snake", "entity"], "tail");
+    snakeBody.push(tail);
     enableControl();
 }
 
@@ -151,8 +174,10 @@ function initPlayer() {
 function toggleSprites() {
     if (tick % 2 ==0) {
         player.src = imgRoot + "snake1head1.png"
+        tail.src   = imgRoot + "snake1tail2.png"
     } else {
         player.src = imgRoot + "snake1head2.png"
+        tail.src   = imgRoot + "snake1tail1.png"
     }
 }
 
@@ -161,6 +186,7 @@ function toggleSprites() {
 function startUp() {
     if (active == false) {
         active = true;
+        tick = 1;
         startBtnEl.style.display = "none";
         var txt = document.createElement('p');
         txt.style.color = "white";
@@ -196,7 +222,10 @@ function delta(){
  * of movement.
  */
 function movePlayer(){
-    moveSprite(player, playerDir[0], playerDir[1]);
+    var targetX = player.style.gridColumn;
+    var targetY = player.style.gridRow;
+    console.log(moveSprite(player, playerDir[0], playerDir[1]));
+    setSpriteXY(snakeBody[0], targetX ,targetY);
 }
 
 /**Effect of user trigger to move player up

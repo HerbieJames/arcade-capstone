@@ -108,6 +108,10 @@ main {
     z-index: 0;
 }
 
+.entity {
+    z-index: 1;
+}
+
 #player {
     z-index: 2;
 }
