@@ -143,8 +143,11 @@ function initLevel() {
 function initPlayer() {
     initSprite(gridX, gridY/2, playerImg, null, "player");
     player = document.getElementById("player");
+    enableControl();
 }
 
+/** Toggles the artwork of sprites relative to the value of tick.
+ */
 function toggleSprites() {
     if (tick % 2 ==0) {
         player.src = imgRoot + "snake1head1.png"
@@ -174,7 +177,7 @@ function startUp() {
     }
 }
 
-/**Runs every 500 //*, and shuffles through tick values 1 -> 4 (1, 2, 3, 4, 1...)
+/**Runs every 500, and shuffles through tick values 1 -> 4 (1, 2, 3, 4, 1...)
 */
 function delta(){
     if ((active == false) && (tick % 2 == 0)) {
@@ -185,13 +188,76 @@ function delta(){
         toggleSprites();
     }
     tick += tick == 4 ? (-3) : 1;
-    setTimeout(delta, 500); //*
+    setTimeout(delta, 500);
 }
 
 // --SNAKE FUNCTIONS--
+/**Updates the player's position every tick based on their direction
+ * of movement.
+ */
 function movePlayer(){
     moveSprite(player, playerDir[0], playerDir[1]);
 }
 
+/**Effect of user trigger to move player up
+*/
+function moveUp(event) {
+    playerDir = [0, -1]
+}
+
+/**Effect of user trigger to move player up
+*/
+function moveDown(event) {
+    playerDir = [0, 1]
+}
+
+/**Effect of user trigger to move player light
+*/
+function moveLeft(event) {
+    playerDir = [-1, 0]
+}
+
+/**Effect of user trigger to move player right.
+*/
+function moveRight(event) {
+    playerDir = [1, 0]
+}
+
+/**changes the player's movement direction as a keyboard event
+ * @param {Event} e keyboard event
+ */
+function buttonMove(e) {
+    if      ((e.code === "ArrowUp")    || (e.code === "KeyW")) { moveUp(e);    }
+    else if ((e.code === "ArrowDown")  || (e.code === "KeyS")) { moveDown(e);  }
+    else if ((e.code === "ArrowLeft")  || (e.code === "KeyA")) { moveLeft(e);  }
+    else if ((e.code === "ArrowRight") || (e.code === "KeyD")) { moveRight(e); }
+}
+
+/**Enables the controls for the player for starting, resuming or reseting.
+ */
+function enableControl() {
+    upBtnEl.addEventListener("click", moveUp);
+    downBtnEl.addEventListener("click", moveDown);
+    leftBtnEl.addEventListener("click", moveLeft);
+    rightBtnEl.addEventListener("click", moveRight);
+    document.addEventListener('keyup', buttonMove);
+}
+
+/**Disables the controls for the player for dying, pausing or reseting.
+ */
+function disableControl() {
+    upBtnEl.removeEventListener('click', moveUp);
+    downBtnEl.removeEventListener('click', moveDown);
+    leftBtnEl.removeEventListener('click', moveLeft);
+    rightBtnEl.removeEventListener('click', moveRight);
+    document.removeEventListener('keyup', buttonMove);
+}
+
 // SCRIPT
-delta();
+window.addEventListener("keydown", function(e) {
+    if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+        e.preventDefault();
+    }
+}, false); //<-- Disables keyboard controls over page navigation.
+
+delta(); //<-- Runs a set of game functions every "tick" (500)
