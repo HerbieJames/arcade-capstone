@@ -19,6 +19,55 @@
     <div class = page-wrap>
         <!--Game Page-->
         <br>
+        <div class = "area game-machine">
+            <main>
+                <header class = "area game-header">
+                    <!--Snake Header-->
+                    <div class="headerEl">
+                        <h1>Snake<h1>
+                    </div>
+                    <!--Snake Header End-->
+                </header>
+                <div class = "area game-window">
+                    <!--Snake Display-->
+                    <button id = "startBtnEl" onclick="tryStartUp()">START</button>
+                    <!--Snake Header End-->
+                </div>
+                <div class = "area game-pad">
+                    <!--Snake Controls-->
+                    <div id = "gameControllerEl">
+                        <button class= "button" id="btnLeftEl">←, A</button>
+                        <button class= "button" id="btnUpEl">↑, W, Space</button>
+                        <button class= "button" id="btnDownEl">↓, S</button>
+                        <button class= "button" id="btnRightEl">→, D</button>
+                    </div>
+                    <script src="./assets/js/snake.js"></script>
+                    <!--Snake Controls End-->
+                </div>
+            </main>
+            <div class = "area game-scores">
+                <!--Snake Scores-->
+                <article>
+                    <br>
+                    <h2>Hi-Scores</h2>
+                    <br>
+                </article>
+                <!--Snake Scores End-->
+            </div>
+            <div class = "area game-footer">
+            </div>
+        </div>
+        <br>
+        <script>
+            function tryStartUp() {
+                try { 
+                   startUp(); 
+                } catch { 
+                    console.log("Unable to Load");
+                    document.getElementById("startBtnEl").style.backgroundColor = "black";
+                }
+            }
+        </script>
         <!--Game Page End-->
         <footer>
             <p>Capstone Arcade - created by <a href="https://github.com/HerbieJames">Herbie James</a><p>
