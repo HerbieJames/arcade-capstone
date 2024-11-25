@@ -22,6 +22,10 @@ footer, .shell-header {
     background-color: black;
 }
 
+h1 {
+    font-size: xx-large;
+}
+
 br {
     display: block;
     content: "";
@@ -31,4 +35,77 @@ br {
 .page-wrap {
     overflow-y: scroll;
     height: calc(100vh - 48px);
+}
+
+
+a {
+    color: aqua;
+}
+
+.area {
+    background-color: aquamarine;
+    border: 1px solid black;
+}
+
+.game-machine {
+    flex: 1 1 0;
+    height: auto;
+    width: calc(100vh - 184px);
+    margin: auto;
+}
+
+main {
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 0;
+    margin: 0px; 
+    height: calc(100vh - 62px);;
+}
+
+.game-header {
+    width: 100%;
+    height: 48px;
+    margin: auto;
+    width: 100%;
+}
+
+.game-window {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    display: flex;
+}
+
+.game-pad {
+    height: 128px;
+}
+
+#startBtnEl {
+    position: absolute;
+    height: 384px;
+    width:  384px;
+    top:  calc(50% - 192px);
+    left: calc(50% - 192px);
+    font-size:xx-large;
+}
+
+#gameControllerEl {
+    display: flex;
+    flex-flow: row;
+    height: 100%;
+    width: 100%;
+    padding: 1%;
+}
+
+.button {
+    flex: 1 1 0;
+    padding: 1%;
+}
+
+.game-scores {
+    display: flex;
+    justify-content: center;
+}
+
+.game-footer {
+    height: 32px;
 }
