@@ -50,28 +50,41 @@ a {
 .game-machine {
     flex: 1 1 0;
     height: auto;
-    width: calc(100vh - 184px);
+    width: calc(0.68 * 100vh);
+    max-width: 100vw;
     margin: auto;
 }
 
-main {
+#gameEl {
     display: flex;
     flex-flow: column;
     flex: 1 1 0;
     margin: 0px; 
-    height: calc(100vh - 62px);;
+    height: calc(100vh - 62px);
 }
 
 .game-header {
     width: 100%;
     height: 48px;
-    margin: auto;
     width: 100%;
 }
 
+#headerEl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
 .game-window {
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.25), rgba(0,0,0, 1)),
+        linear-gradient(90deg,  rgba(255,255,255,0.25), rgba(0,0,0, 0.5)),
+        linear-gradient(270deg, rgba(255,255,255,0.25), rgba(0,0,0, 0.5)),
+        linear-gradient(0deg,   rgba(255,255,255,0.25), rgba(0,0,0, 1));
     position: relative;
     aspect-ratio: 1 / 1;
+    flex: 1 1 0;
     display: flex;
 }
 
@@ -136,4 +149,39 @@ main {
 
 .game-footer {
     height: 32px;
+}
+
+@media  screen and (max-width:388px),
+        screen and (max-height: 574px){
+    #gameDisplayEl {
+        height: 192px;
+        width: 192px;
+        grid-template-rows:    16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px;
+        grid-template-columns: 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px;
+    }
+
+    #scoreEl { font-size: 16px; }
+
+    #startBtnEl {
+        height: 192px;
+        width:  192px;
+        top:  calc(50% - 96px);
+        left: calc(50% - 96px);
+        font-size:x-large;
+    }
+    
+    .game-machine {
+        width: calc(0.52 * 100vh);
+        min-width: 192px;
+    }
+
+    .sprite {
+        height: 16px;
+        width: 16px;
+    }
+}
+
+@media  screen and (max-width:193px),
+        screen and (max-height: 379px){
+    .page-wrap > * { display: none; }
 }
