@@ -12,14 +12,19 @@
 <!--* Shell-->
 <body>
     <div class = "shell-header">
-        <img id = "btnMenuEl" aria-label="menu button" alt="menu button">
-        <img id = "btnHomeEl" aria-label="home button" alt="home button">
-        <img id = "btnProfEl" aria-label="profile button" alt="profile button">
+        <a href="./index.html" class = "header-button">
+            <img src = "./assets/images/frog2.png" alt="home button">
+        </a>
+        <a href="#page-top" class = "header-button">
+            <img src = "./assets/images_snake/snake1head1.png" alt="game button">
+        </a>
+        <a href="#page-scores" class = "header-button">
+            <img src = "./assets/images_snake/apple1.png" alt="score button">
+        </a>
     </div>
     <div class = page-wrap>
         <!--Game Page-->
-        <div style = "scroll-snap-align: start;"></div>
-        <br>
+        <div id = "page-top">
         <div class = "area game-machine">
             <main id = "gameEl">
                 <header class = "area game-header">
@@ -49,7 +54,7 @@
                     <!--Snake Controls End-->
                 </div>
             </main>
-            <div class = "area game-scores">
+            <div id = "page-scores" class = "area game-scores">
                 <!--Snake Scores-->
                 <article>
                     <br>
@@ -60,6 +65,7 @@
             </div>
             <div class = "area game-footer">
             </div>
+        </div>
         </div>
         <br>
         <script>

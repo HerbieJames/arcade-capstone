@@ -1,4 +1,5 @@
 * {
+    image-rendering: pixelated;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -21,6 +22,19 @@ footer, .shell-header {
     background-color: black;
 }
 
+.shell-header {
+    justify-content: space-around;
+}
+
+#page-top, #page-scores {
+    scroll-snap-align: start;
+    padding-top: 12px;
+}
+
+main {
+    display: flex;
+}
+
 h1 {
     font-size: xx-large;
 }
@@ -31,20 +45,48 @@ br {
     margin-top: 12px;
 }
 
-.page-wrap {
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
-    height: calc(100vh - 48px);
-}
-
-
 a {
     color: aqua;
+}
+
+.header-button {
+    border-left: 1px solid aqua;
+    border-right: 1px solid aqua;
+    width: 20%;
+}
+
+.header-button > img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+}
+
+.page-wrap {
+    height: calc(100vh - 48px);
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
 }
 
 .area {
     background-color: aquamarine;
     border: 1px solid black;
+}
+
+.card {
+    aspect-ratio: 1 /1;
+    flex: 1 1 0;
+    margin: 5%;
+    border: 1px solid black;
+    color: black;
+    background-color: aquamarine;
+}
+
+.menu {
+    height: calc(100vh - 96px);
+    justify-content: space-around;
+    align-items: baseline;
 }
 
 .game-machine {
@@ -56,7 +98,6 @@ a {
 }
 
 #gameEl {
-    display: flex;
     flex-flow: column;
     flex: 1 1 0;
     margin: 0px; 
@@ -113,7 +154,6 @@ a {
 }
 
 .sprite {
-    image-rendering: pixelated;
     height: 32px;
     width: 32px;
 }
@@ -152,7 +192,6 @@ a {
     display: flex;
     justify-content: center;
     height: calc(100vh - 146px);
-    scroll-snap-align: start;
 }
 
 .game-footer {
