@@ -9,10 +9,8 @@ const gridYinit  = 2;
 const playSpawnX = gridX-1;
 const playSpawnY = gridY/2;
 const imgRoot    = "./assets/images_snake/";
-let playerImg = "snake1head1.png";
+let playerImg = 1;
 let player;
-let tail;
-let snakeBody = [];
 let active    = false;
 let tick      = 0;
 
@@ -22,6 +20,8 @@ const downBtnEl  = document.getElementById("btnDownEl");
 const leftBtnEl  = document.getElementById("btnLeftEl");
 const rightBtnEl = document.getElementById("btnRightEl");
 let playerDir = [-1,0];
+let lastDir   = [-1,0];
+let snakeBody = [];
 
 // FUNCTIONS
 // --TOOLING FUNCTIONS--
@@ -124,15 +124,17 @@ function getSpriteXY(element) {
  * @return {Object}          the new ".x", ".y" values.
 */
 function moveSprite(element, x, y) {
-    var currentX = element.style.gridColumn;
-    var currentY = element.style.gridRow;
+    var currentX = getSpriteXY(element).x
+    var currentY = getSpriteXY(element).y
     var targetX  = currentX - -x;
     var targetY  = currentY - -y;
     var neighbor;
     if (targetX < gridXinit) { targetX = gridX; }
     if (targetY < gridYinit) { targetY = gridY; }
+    if (targetX > gridX) { targetX = gridXinit; }
+    if (targetY > gridY) { targetY = gridYinit; }
     element.style.gridColumn = targetX;
-    element.style.gridrow    = targetY;
+    element.style.gridRow    = targetY;
     neighbor = nearestTile(targetX, targetY);
     if (neighbor != undefined) { neighbor.before(element); }
     return {x: targetX, y: targetY}
@@ -150,21 +152,47 @@ function setSpriteXY(element, x, y) {
     element.style.gridRow = y;
 }
 
+/**Sets a given element's rotation to a specified angle in degrees.
+ * @param {Element} element the target HTML element
+ * @param {Number}  deg     orientation to set element where 0 is up
+*/
+function setSpriteDeg(element, deg) {
+    element.style.transform = `rotate(${deg}deg)`;
+}
+
+/**Takes a right unit vector and converts it to an angle in degrees from left
+ * @param {Array} dir right unit vector
+ * 
+ */
+function dirToDeg(dir){
+    var degrees
+    if (dir[0] == 1) { degrees = 180;}
+    else { degrees = 180*(dir[0] + 1) + 90*dir[1]; }
+    return degrees;
+}
+
+// --SNAKE FUNCTIONS--
+
 /**Initializes level by initializing tile sprites into each row
  */
 function initLevel() {
+    var apple = [
+        Math.ceil(Math.random()*(gridX - gridXinit)) + gridXinit,
+        Math.ceil(Math.random()*(gridY - gridYinit)) + gridYinit,
+    ]
     for (let y = (gridYinit); y <= gridY; y++) {
         for (let i = gridXinit; i <= gridX; i++) {
             initSprite(i, y, "ground.png", ["tile"]);
         }
     }
+    console.log("apple:", apple)
 }
 
 /**Creates a sprite with id "player" and src playerImg.
  */
 function initPlayer() {
-    player = initSprite(playSpawnX, playSpawnY, playerImg, null, "player");
-    tail = initSprite(playSpawnX+1, playSpawnY, "snake1tail1.png", ["snake", "entity"], "tail");
+    player = initSprite(playSpawnX, playSpawnY, `snake${playerImg}head1.png`, null, "player");
+    tail = initSprite(playSpawnX+1, playSpawnY, `snake${playerImg}tail1.png`, ["player"]);
     snakeBody.push(tail);
     enableControl();
 }
@@ -172,84 +200,59 @@ function initPlayer() {
 /** Toggles the artwork of sprites relative to the value of tick.
  */
 function toggleSprites() {
-    if (tick % 2 ==0) {
-        player.src = imgRoot + "snake1head1.png"
-        tail.src   = imgRoot + "snake1tail2.png"
-    } else {
-        player.src = imgRoot + "snake1head2.png"
-        tail.src   = imgRoot + "snake1tail1.png"
-    }
+    var i = tick % 2 + 1
+    player.src = imgRoot + `snake${playerImg}head${i}.png`
+    snakeBody.forEach((element) => {
+        i = i == 1 ? 2 : 1
+        element.src = imgRoot + `snake${playerImg}body${i}.png`
+    })
 }
 
-/**Initializes Game
- */
-function startUp() {
-    if (active == false) {
-        active = true;
-        tick = 1;
-        startBtnEl.style.display = "none";
-        var txt = document.createElement('p');
-        txt.style.color = "white";
-        txt.style.backgroundColor = "black";
-        txt.classList.add(`score-area`);
-        txt.style.gridRow    = 1;
-        txt.id = `scoreEl`;
-        txt.innerHTML = "000000";
-        txt.style.gridColumn = 1;
-        grid.appendChild(txt);
-        initLevel();
-        gridHTML();
-        initPlayer();
-    }
-}
-
-/**Runs every 500, and shuffles through tick values 1 -> 4 (1, 2, 3, 4, 1...)
-*/
-function delta(){
-    if ((active == false) && (tick % 2 == 0)) {
-        startBtnEl.innerHTML = startBtnEl.innerHTML == "" ? "START" : "";
-    } else if (active == false) {} 
-    else {
-        movePlayer();
-        toggleSprites();
-    }
-    tick += tick == 4 ? (-3) : 1;
-    setTimeout(delta, 500);
-}
-
-// --SNAKE FUNCTIONS--
 /**Updates the player's position every tick based on their direction
  * of movement.
  */
 function movePlayer(){
-    var targetX = player.style.gridColumn;
-    var targetY = player.style.gridRow;
-    console.log(moveSprite(player, playerDir[0], playerDir[1]));
-    setSpriteXY(snakeBody[0], targetX ,targetY);
+    var targetXY1 = [player.style.gridColumn, player.style.gridRow];
+    var targetXY2;
+    var start = true;
+    moveSprite(player, playerDir[0], playerDir[1]);
+    setSpriteDeg(player, dirToDeg(playerDir));
+    snakeBody.forEach((element) => {
+        if (start == true) {
+            targetXY2 = setSpriteXY(element, targetXY1[0], targetXY1[1]);
+            start = false;
+        } else {
+            targetXY2 = setSpriteXY(element, targetXY2[0], targetXY2[1]);
+        }
+    })
 }
 
 /**Effect of user trigger to move player up
 */
 function moveUp(event) {
-    playerDir = [0, -1]
+    if (playerDir[1] != 1) { playerDir = [0, -1]; }
+    else { console.log("INVALID TURN");}
 }
 
 /**Effect of user trigger to move player up
 */
 function moveDown(event) {
-    playerDir = [0, 1]
+    if (playerDir[1] != -1) { playerDir = [0, 1]; }
+    else { console.log("INVALID TURN");}
 }
 
 /**Effect of user trigger to move player light
 */
 function moveLeft(event) {
-    playerDir = [-1, 0]
+    if (playerDir[0] != 1) { playerDir = [-1, 0]; }
+    else { console.log("INVALID TURN");}
 }
 
 /**Effect of user trigger to move player right.
 */
 function moveRight(event) {
-    playerDir = [1, 0]
+    if (playerDir[0] != -1) { playerDir = [1, 0]; }
+    else { console.log("INVALID TURN");}
 }
 
 /**changes the player's movement direction as a keyboard event
@@ -280,6 +283,44 @@ function disableControl() {
     leftBtnEl.removeEventListener('click', moveLeft);
     rightBtnEl.removeEventListener('click', moveRight);
     document.removeEventListener('keyup', buttonMove);
+}
+
+/**Initializes Game
+ */
+function startUp() {
+    if (active == false) {
+        active = true;
+        tick = 1;
+        startBtnEl.style.display = "none";
+        var txt = document.createElement('p');
+        txt.style.color = "white";
+        txt.style.backgroundColor = "black";
+        txt.classList.add(`score-area`);
+        txt.style.gridRow    = 1;
+        txt.id = `scoreEl`;
+        txt.innerHTML = "000000";
+        txt.style.gridColumn = 1;
+        grid.appendChild(txt);
+        initLevel();
+        gridHTML();
+        initPlayer();
+    }
+}
+
+/**Runs every 500, and shuffles through tick values 1 -> 4 (1, 2, 3, 4, 1...)
+*/
+function delta(){
+    var speed;
+    if ((active == false) && (tick % 2 == 0)) {
+        startBtnEl.innerHTML = startBtnEl.innerHTML == "" ? "START" : "";
+    } else if (active == false) {} 
+    else {
+        movePlayer();
+        toggleSprites();
+    }
+    speed = 500;
+    tick += tick == 4 ? (-3) : 1;
+    setTimeout(delta, speed);
 }
 
 // SCRIPT
