@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scores List</title>
+    <style>
+        .score-card { display: flex;
+            align-items: center;
+            border-radius: 5px;
+            background-color: gray;
+        }
+        .score-instance {
+            display: flex;
+            justify-content: space-between;
+            width: calc(100%);
+            margin: 8px;
+            padding: 2px 4px;
+            background-color: black;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: x-large;
+        }
+        .score-value, .score-alias {
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Hi-Scores</h1>
+    {% for score in object_list %}
+    <div class = "score-card">
+        <p class="score-instance">
+            <span class="score-value">{{score.value}}</span>
+            <span class="score-alias">{{score.alias}}</span>
+        </p>
+    </div>
+    {% endfor %}
+</body>
+
+</html>
