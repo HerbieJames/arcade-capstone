@@ -8,7 +8,7 @@ const gridXinit  = 2;
 const gridYinit  = 2;
 const playSpawnX = gridX + 1;
 const playSpawnY = Math.floor((gridY + gridYinit)/2);
-const imgRoot    = "./assets/images_snake/";
+const imgRoot    = staticPath;
 let playerImg = 1;
 let player;
 let active    = false;
@@ -283,7 +283,6 @@ function initLevel() {
         }
     }
     active = true;
-    console.log("active", active)
 }
 
 /**Deletes all tile elements, pagebreaks and cell spaces.
@@ -442,6 +441,7 @@ function endGame() {
     clearLvl();
     document.getElementById("scoreEl").remove();
     startBtnEl.style.display = "inline";
+    console.log("GAME OVER")
 }
 
 /**Initializes Game
@@ -462,6 +462,8 @@ function startUp() {
         grid.appendChild(txt);
         initLevel();
         gridHTML();
+        console.log("ImgRoot:");
+        console.log(imgRoot);
     }
 }
 

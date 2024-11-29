@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<!--Game Page-->
+<div id = "page-top">
+    <div class = "area game-machine">
+        <main id = "gameEl">
+            <header class = "area game-header">
+                <!--Snake Header-->
+                <div class="headerEl">
+                    <h1>Snake<h1>
+                </div>
+                <!--Snake Header End-->
+            </header>
+            <div class = "area game-window">
+                <!--Snake Display-->
+                <button id = "startBtnEl" onclick="tryStartUp()">START</button>
+                <div id = "gameDisplayEl"></div>
+                <!--Snake Header End-->
+            </div>
+            <div class = "area game-pad">
+                <!--Snake Controls-->
+                <link rel="prefetch" href="{% static 'js/snake.js' %}"/>
+                <div id = "gameControllerEl">
+                    <button class= "button" id="btnLeftEl">←, A</button>
+                    <div style="display:flex; flex-flow:column; flex: 1 1 0;">
+                        <button class= "button" id="btnUpEl">↑, W, Space</button>
+                        <button class= "button" id="btnDownEl">↓, S</button>
+                    </div>
+                    <button class= "button" id="btnRightEl">→, D</button>
+                </div>
+                <script> const staticPath = "{% static 'images_snake/' %}"; </script>
+                <script src="{% static 'js/snake.js' %}"></script>
+                <!--Snake Controls End-->
+            </div>
+        </main>
+    </div>
+</div>
+<div id = "page-scores">
+    <div class = "area game-machine">
+        <!--Snake Scores-->
+        <article class = "area game-scores">
+            <h1>Hi-Scores</h1>
+            {% for score in object_list %}
+            <div class = "score-card">
+                <p class="score-instance">
+                    <span class="score-value">{{score.value}}</span>
+                    <span class="score-alias">{{score.alias}}</span>
+                </p>
+            </div>
+            {% endfor %}
+        </article>
+        {% if is_paginated %}
+        <nav class = "area" aria-label="Page navigation">
+            <ul class="score-pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> PREV &raquo;</a></li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+        <!--Snake Scores End-->
+        <div class = "area game-footer">
+        </div>
+    </div>
+</div>
+<br>
+<script>
+    function tryStartUp() {
+        // try { 
+            startUp(); 
+        // } catch { 
+        //     console.log("Unable to Load");
+        //     document.getElementById("startBtnEl").style.backgroundColor = "black";
+        // }
+    }
+</script>
+    <!--Game Page End-->
+
+{% endblock %}
