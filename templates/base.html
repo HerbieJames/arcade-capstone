@@ -1,0 +1,46 @@
+{% load static %}
+
+{% url 'home' as home_url %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capstone Arcade</title>
+    <!--Styles-->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!--Favicon-->
+    <link rel="icon" type="image/x-icon" href="#">
+</head>
+<!--* Shell-->
+<body>
+
+    <!--Navigation -->
+    <nav class = "shell-header">
+        <a href="{% url 'home' %}" class = "header-button">
+            <img src = "./assets/images/frog2.png" alt="home button">
+        </a>
+        <a href="#page-top" class = "header-button">
+            <img src = "#" alt="game button">
+        </a>
+        <a href="#page-scores" class = "header-button">
+            <img src = "#" alt="score button">
+        </a>
+    </nav>
+    <!--Navigation End-->
+    <div class = page-wrap>
+        <!--Page Content-->
+        {% block content %}
+
+
+        {% endblock content %}
+        <!--Page Content End-->
+        <footer>
+            <p>Capstone Arcade - created by <a href="https://github.com/HerbieJames">Herbie James</a><p>
+        </footer>
+    </div>
+</body>
+<!--* Shell End-->
+</html>
