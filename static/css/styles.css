@@ -35,12 +35,18 @@ footer, .shell-header {
     scroll-snap-align: start;
 }
 
-main {
-    display: flex;
+.page-break {
+    scroll-snap-align: start;
+    padding-top: 12px;
 }
 
 h1 {
     font-size: xx-large;
+    text-align: center;
+}
+
+h3 {
+    font-size: large;
     text-align: center;
 }
 
@@ -52,6 +58,21 @@ br {
 
 a {
     color: aqua;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+label {
+    pointer-events: none;
+    position: absolute;
+    font-size: x-large;
+    font-weight: bolder;
+    border-radius: 20px;
+    color: white;
+    background-color: rgba(0,0,0, 0.25);
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.625);
 }
 
 .header-button {
@@ -67,11 +88,19 @@ a {
     height: 100%;
 }
 
+.backImg {
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
 .page-wrap {
     height: calc(100vh - 48px);
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
+    scrollbar-color: black grey;
 }
 
 .area {
@@ -79,19 +108,60 @@ a {
     border: 1px solid black;
 }
 
+
+.menu {
+}
+
+.menu-row {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: calc(100vh - 96px);
+}
+
+
 .card {
-    aspect-ratio: 1 /1;
-    flex: 1 1 0;
-    margin: 5%;
+    text-decoration: none; 
+    display: flex;
+    font-size: xx-large;
+    font-weight: bolder;
+    margin: 2.5%;
+    width: 40%;
+    height: calc(95% - 28px);
     border: 1px solid black;
     color: black;
     background-color: aquamarine;
 }
 
-.menu {
-    height: calc(100vh - 96px);
-    justify-content: space-around;
-    align-items: baseline;
+.card > h1 {
+    position: relative;
+    bottom: 10px;
+    z-index: 1;
+    width: 100%;
+}
+
+.thumb {
+    flex: 1 1 0;
+    aspect-ratio: 1 / 1;
+    max-width: 90%;
+    height: 50%;
+    margin: 5%;
+}
+
+.card-score {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    padding: 2px 4px;
+    margin: 0 5%;
+    background-color: black;
+    color: white;
+    font-size: medium;
+}
+
+.card-container {
+    flex: 1 1 0;
+    width: 100%;
 }
 
 .game-machine {
@@ -103,14 +173,18 @@ a {
 }
 
 #gameEl {
+    display: flex;
     flex-flow: column;
     flex: 1 1 0;
     margin: 0px; 
-    height: calc(100vh - 62px);
+    height: calc(100vh - 68px);
 }
 
 .game-header {
-    width: 100%;
+    position: relative;
+    outline: black solid 1px;
+    right: 5%;
+    width: 110%;
     height: 48px;
     padding: 4px;
 }
@@ -131,12 +205,17 @@ a {
     position: relative;
     aspect-ratio: 1 / 1;
     flex: 1 1 0;
+    container-type: inline-size;
+    container-name: box;
     display: flex;
 }
 
 #gameDisplayEl {
+    position: absolute;
     height: 384px;
     width:  384px;
+    top:  calc(50% - 192px);
+    left: calc(50% - 192px);
     margin: auto;
     display: grid;
     grid-template-rows:    32px 32px 32px 32px 32px 32px 32px 32px 32px 32px 32px 32px;
@@ -146,6 +225,7 @@ a {
 }
 
 #startBtnEl {
+    z-index: 1;
     position: absolute;
     height: 384px;
     width:  384px;
@@ -176,7 +256,13 @@ a {
 }
 
 .game-pad {
+    position: relative;
+    outline: black solid 1px;
+    right: 5%;
+    width: 110%;
     flex: 1 1 0;
+    container-type: inline-size;
+    container-name: controller;
 }
 
 #gameControllerEl {
@@ -194,13 +280,17 @@ a {
 }
 
 .game-scores {
+    position: relative;
+    outline: black solid 1px;
+    right: 5%;
+    width: 110%;
     display: flex;
     flex-flow: column;
     height: calc(100vh - 146px);
 }
 
 .game-scores > h1{
-    margin: 8px 8px 0 8px;
+    margin: 32px 32px 0 32px;
     background-color: black;
     color: white;
 }
@@ -208,20 +298,19 @@ a {
 .score-card {
     display: flex;
     align-items: center;
-    margin: 0 8px;
-    width: calc(100% - 16px);
+    margin: 0 32px;
+    width: calc(100% - 64px);
     background-color: black;
 }
 
 .score-instance {
     display: flex;
     justify-content: space-between;
-    width: calc(100%);
-    margin: 8px;
+    width: 100%;
+    margin: 4px 40px;
     padding: 2px 4px;
     color: white;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: x-large;
+    font-size: xx-large;
 }
 .score-value, .score-alias {
     text-transform: uppercase;
@@ -242,19 +331,77 @@ li > a {
 
 .game-footer {
     height: 32px;
+    position: relative;
+    outline: black solid 1px;
+    right: 5%;
+    width: 110%;
 }
 
 @media  screen and (max-width:388px),
         screen and (max-height: 574px){
-    #gameDisplayEl {
-        height: 192px;
-        width: 192px;
-        grid-template-rows:    16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px;
-        grid-template-columns: 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px;
+    
+    .game-machine {
+        width: calc(0.52 * 100vh);
+        min-width: 192px;
     }
 
-    #scoreEl { font-size: 16px; }
+    .game-scores > h1{
+        font-size: large;
+    }
 
+    .score-instance {
+        margin: 1px 3px;
+        font-size: medium;
+    }
+}
+
+@media  screen and (max-width:379px){
+    .menu-row {
+        flex-flow: column;
+        align-items: center;
+        height: auto;
+    }
+
+    .card {
+        font-size: large;
+        font-weight: bold;
+        width: auto;
+        height: calc(100vh - 112px);
+    }
+}
+
+
+@media  screen and (max-width:193px),
+        screen and (max-height: 379px){
+    .page-wrap > * { display: none; }
+}
+
+@container box (min-width: 576px){
+    #startBtnEl {
+        height: 576px;
+        width:  576px;
+        top:  calc(50% - 288px);
+        left: calc(50% - 288px);
+        font-size: xx-large;
+    }
+    #gameDisplayEl {
+        height: 576px;
+        width:  576px;
+        top:  calc(50% - 288px);
+        left: calc(50% - 288px);
+        grid-template-rows:    48px 48px 48px 48px 48px 48px 48px 48px 48px 48px 48px 48px;
+        grid-template-columns: 48px 48px 48px 48px 48px 48px 48px 48px 48px 48px 48px 48px;
+    }
+
+    #scoreEl { font-size: 48px; }
+
+    .sprite {
+        height: 48px;
+        width: 48px;
+    }
+}
+
+@container box (max-width: 384px){
     #startBtnEl {
         height: 192px;
         width:  192px;
@@ -262,19 +409,19 @@ li > a {
         left: calc(50% - 96px);
         font-size:x-large;
     }
-    
-    .game-machine {
-        width: calc(0.52 * 100vh);
-        min-width: 192px;
+    #gameDisplayEl {
+        height: 192px;
+        width: 192px;
+        top:  calc(50% - 96px);
+        left: calc(50% - 96px);
+        grid-template-rows:    16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px;
+        grid-template-columns: 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px;
     }
+
+    #scoreEl { font-size: 16px; }
 
     .sprite {
         height: 16px;
         width: 16px;
     }
-}
-
-@media  screen and (max-width:193px),
-        screen and (max-height: 379px){
-    .page-wrap > * { display: none; }
 }

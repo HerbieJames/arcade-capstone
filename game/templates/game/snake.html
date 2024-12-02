@@ -2,7 +2,14 @@
 
 {% load static %}
 
+{% block tab_title %}
+    <title>Snake - Capstone Arcade</title>
+    <!--Favicon-->
+    <link rel="icon" type="image/x-icon" href="{% static 'images_snake/snake1head1.png' %}">
+{% endblock tab_title %}
+
 {% block header %}
+    <title>Snake</title>
     <!--Snake Header-->
     <div class="headerEl">
         <h1>Snake<h1>
