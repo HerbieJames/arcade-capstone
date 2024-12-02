@@ -3,22 +3,20 @@
 {% load static %}
 
 {% block tab_title %}
-    <title>Snake - Capstone Arcade</title>
-    <!--Favicon-->
-    <link rel="icon" type="image/x-icon" href="{% static 'images_snake/snake1head1.png' %}">
+    <title>Frogger - Capstone Arcade</title>
 {% endblock tab_title %}
 
 {% block header %}
-    <title>Snake</title>
-    <!--Snake Header-->
+    <!--Frogger Header-->
     <div class="headerEl">
-        <h1>Snake<h1>
+        <h1>Frogger<h1>
     </div>
-    <!--Snake Header End-->
+    <!--Frogger Header End-->
 {% endblock header %}
 
 {% block controls %}
-    <!--Snake Controls-->
+    <!--Frogger Controls-->
+    <link rel="prefetch" href="{% static 'js/frogger.js' %}"/>
     <div id = "gameControllerEl">
         <button class= "button" id="btnLeftEl">←, A</button>
         <div style="display:flex; flex-flow:column; flex: 1 1 0;">
@@ -27,13 +25,13 @@
         </div>
         <button class= "button" id="btnRightEl">→, D</button>
     </div>
-    <script src="{% static 'js/snake.js' %}" defer></script>
-    <script> const ImgsPath = "{% static 'images_snake/' %}"; </script>
-    <!--Snake Controls End-->
+    <script src="{% static 'js/frogger.js' %}" defer></script>
+    <script> const ImgsPath = "{% static 'images_frogger/' %}"; </script>
+    <!--Frogger Controls End-->
 {% endblock controls %}
 
 {% block scores %}
-    <!--Snake Scores-->
+    <!--Frogger Scores-->
     <article class = "area game-scores">
         <h1>Hi-Scores</h1>
         {% for score in object_list %}
@@ -57,5 +55,5 @@
             </ul>
         </nav>
     {% endif %}
-    <!--Snake Scores End-->
+    <!--Frogger Scores End-->
 {% endblock scores %}

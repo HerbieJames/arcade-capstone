@@ -1,14 +1,38 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block content %}
 <!--Menu Page-->
 <main class = "menu">
-    <a class = "card" href="{% url 'snake' %}">
-        Snake
-    </a>
-    <a class = "card" href="#">
-        Frogger
-    </a>
+    <div class = "menu-row">
+        <a class = "card page-break" href="{% url 'snake' %}">
+            <img class="thumb" src = "{% static 'gifs/snake_thumb.gif' %}">
+            <div class = "card-container">
+                <h1>Snake</h1>
+                <h3>Personal Best:</h3>
+                {% for score in object_list %}
+                    <p class="card-score">
+                        <span class="score-value">{{score.value}}</span>
+                        <span class="score-alias">{{score.alias}}</span>
+                    </p>
+                {% endfor %}
+            </div>
+        </a>
+        <a class = "card page-break" href="{% url 'frogger' %}">
+            <img class="thumb" src = "{% static 'gifs/snake_thumb.gif' %}">
+            <div class = "card-container">
+                <h1>Frogger</h1>
+                <h3>Personal Best:</h3>
+                {% for score in object_list %}
+                    <p class="card-score">
+                        <span class="score-value">{{score.value}}</span>
+                        <span class="score-alias">{{score.alias}}</span>
+                    </p>
+                {% endfor %}
+            </div>
+        </a>
+    </div>
 </main>
 <!--Menu Page End-->
 {% endblock %}

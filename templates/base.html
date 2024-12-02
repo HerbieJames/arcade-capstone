@@ -8,29 +8,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capstone Arcade</title>
     <!--Styles-->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <!--Favicon-->
-    <link rel="icon" type="image/x-icon" href="#">
+    {% block tab_title %}
+        <title>Capstone Arcade</title>
+        <!--Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.PNG' %}">
+    {% endblock tab_title %}
 </head>
 <!--* Shell-->
 <body>
-
     <!--Navigation -->
     <nav class = "shell-header">
         <a href="{% url 'home' %}" class = "header-button">
-            <img src = "./assets/images/frog2.png" alt="home button">
+            <label for="home">Home</label>
+            <img src = "{% static 'images/favicon.PNG' %}" alt="home button" name="home">
         </a>
-        <a href="#page-top" class = "header-button">
-            <img src = "#" alt="game button">
-        </a>
-        <a href="#page-scores" class = "header-button">
-            <img src = "#" alt="score button">
+        <a href="#" class = "header-button">
+            <label for="profile">Profile</label>
+            <img src = "{% static 'images/dwarf.PNG' %}" alt="profile button" name="profile">
         </a>
     </nav>
     <!--Navigation End-->
-    <div class = page-wrap>
+    <div class = "page-wrap">
+        <img class = "backImg" src="/static/images/lunacityarcade.jpeg">
         <!--Page Content-->
         {% block content %}
 

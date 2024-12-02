@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block tab_title %}
+    <title>Game Machine - Capstone Arcade</title>
+{% endblock tab_title %}
+
+{% block content %}
+<!--Game Page-->
+<div id = "page-top">
+    <div class = "area game-machine">
+        <main id = "gameEl">
+            <header class = "area game-header">
+                <!--Game Header-->
+                {% block header %}
+                    <div class="headerEl">
+                        <h1>G A M E - M A C H I N E<h1>
+                    </div>
+                {% endblock header %}
+                <!--Game Header End-->
+            </header>
+            <div class = "area game-window">
+                <!--Game Display-->
+                <button id = "startBtnEl" onclick="tryStartUp()">START</button>
+                <div id = "gameDisplayEl"></div>
+                <!--Game Display End-->
+            </div>
+            <div class = "area game-pad">
+                <!--Controls-->
+                {% block controls %}
+                    <div id = "gameControllerEl">
+                        <button class= "button" id="btnLeftEl">←, A</button>
+                        <div style="display:flex; flex-flow:column; flex: 1 1 0;">
+                            <button class= "button" id="btnUpEl">↑, W, Space</button>
+                            <button class= "button" id="btnDownEl">↓, S</button>
+                        </div>
+                        <button class= "button" id="btnRightEl">→, D</button>
+                    </div>
+                {% endblock controls %}
+                <!--Game Controls End-->
+            </div>
+        </main>
+    </div>
+</div>
+<div id = "page-scores">
+    <div class = "area game-machine">
+        <!--Game Scores-->
+        {% block scores %}
+            <article class = "area game-scores">
+                <h1>Hi-Scores</h1>
+            </article>
+        {% endblock scores %}
+        <!--Game Scores End-->
+        <div class = "area game-footer">
+        </div>
+    </div>
+</div>
+<br>
+<script src="{% static 'js/tools.js' %}"></script>
+<script>
+    function tryStartUp() {
+        try { 
+            startUp(); 
+        } catch { 
+            console.log("Unable to Load");
+            document.getElementById("startBtnEl").style.backgroundColor = "black";
+        }
+    }
+</script>
+<!--Game Page End-->
+
+{% endblock %}
