@@ -4,12 +4,12 @@
 
 {% block content %}
 <!--Menu Page-->
-<main class = "menu">
+<main class = "menu page-break">
     <div class = "menu-row">
-        <a class = "card page-break" href="{% url 'snake' %}">
+        <a class = "card" href="{% url 'snake' %}">
             <img class="thumb" src = "{% static 'gifs/snake_thumb.gif' %}">
             <div class = "card-container">
-                <h1>Snake</h1>
+                <h1>--- Snake--- </h1>
                 <h3>Personal Best:</h3>
                 {% for score in object_list %}
                     <p class="card-score">
@@ -22,7 +22,7 @@
         <a class = "card page-break" href="{% url 'frogger' %}">
             <img class="thumb" src = "{% static 'gifs/snake_thumb.gif' %}">
             <div class = "card-container">
-                <h1>Frogger</h1>
+                <h1>--- Frogger ---</h1>
                 <h3>Personal Best:</h3>
                 {% for score in object_list %}
                     <p class="card-score">

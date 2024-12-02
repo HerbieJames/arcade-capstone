@@ -37,7 +37,7 @@ footer, .shell-header {
 
 .page-break {
     scroll-snap-align: start;
-    padding-top: 12px;
+    padding-top: -12px;
 }
 
 h1 {
@@ -48,6 +48,7 @@ h1 {
 h3 {
     font-size: large;
     text-align: center;
+    margin-bottom: 2.5%;
 }
 
 br {
@@ -134,8 +135,6 @@ label {
 }
 
 .card > h1 {
-    position: relative;
-    bottom: 10px;
     z-index: 1;
     width: 100%;
 }
@@ -152,11 +151,11 @@ label {
     display: flex;
     justify-content: space-between;
     width: 90%;
-    padding: 2px 4px;
+    padding: 16px 4px;
     margin: 0 5%;
     background-color: black;
     color: white;
-    font-size: medium;
+    font-size: x-large;
 }
 
 .card-container {
@@ -365,7 +364,7 @@ li > a {
     .card {
         font-size: large;
         font-weight: bold;
-        width: auto;
+        width: 95%;
         height: calc(100vh - 112px);
     }
 }

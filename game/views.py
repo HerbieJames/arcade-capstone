@@ -7,6 +7,7 @@ from django.http import HttpResponse
 class GameList(generic.ListView):
     queryset = Score.objects.all()
     template_name = "game/index.html"
+    paginate_by = 1
 
 class SnakeMachine(generic.ListView):
     queryset = Score.objects.filter(game=1).order_by("-value")
