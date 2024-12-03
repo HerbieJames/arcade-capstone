@@ -1,0 +1,267 @@
+#page-top {
+    scroll-snap-align: start;
+    padding-top: 12px;
+}
+
+#page-scores {
+    scroll-snap-align: start;
+}
+
+.game-machine {
+    flex: 1 1 0;
+    height: auto;
+    width: calc(0.68 * 100vh);
+    max-width: 100vw;
+    margin: auto;
+}
+
+#gameEl {
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 0;
+    height: calc(100vh - 68px);
+}
+
+.game-header {
+    position: relative;
+    outline: black solid 1px;
+    right: 5%;
+    width: 110%;
+    height: 48px;
+    padding: 4px;
+}
+
+#headerEl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.game-window {
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.25), rgba(0,0,0, 1)),
+        linear-gradient(90deg,  rgba(255,255,255,0.25), rgba(0,0,0, 0.5)),
+        linear-gradient(270deg, rgba(255,255,255,0.25), rgba(0,0,0, 0.5)),
+        linear-gradient(0deg,   rgba(255,255,255,0.25), rgba(0,0,0, 1));
+    position: relative;
+    aspect-ratio: 1 / 1;
+    flex: 1 1 0;
+    container-type: inline-size;
+    container-name: box;
+    display: flex;
+}
+
+#gameDisplayEl {
+    position: absolute;
+    height: 384px;
+    width:  384px;
+    top:  calc(50% - 192px);
+    left: calc(50% - 192px);
+    margin: auto;
+    display: grid;
+    grid-template-rows:    32px 32px 32px 32px 32px 32px 32px 32px 32px 32px 32px 32px;
+    grid-template-columns: 32px 32px 32px 32px 32px 32px 32px 32px 32px 32px 32px 32px;
+    background-color: black;
+    box-shadow: 0px 0px 20px rgba(255,255,255,0.75);
+}
+
+#hiScoreScreenEl, #startBtnEl {
+    z-index: 1;
+    position: absolute;
+    height: 384px;
+    width:  384px;
+    top:  calc(50% - 192px);
+    left: calc(50% - 192px);
+    font-size:xx-large;
+    background: none;
+    color: white;
+}
+
+#startBtnEl {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 32px;
+}
+
+.score-area {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 32px;
+    color: white;
+}
+
+.sprite {
+    height: 32px;
+    width: 32px;
+}
+
+.tile {
+    z-index: 0;
+}
+
+.point {
+    z-index: 1;
+}
+
+#player, .player {
+    z-index: 2;
+}
+
+.game-pad {
+    position: relative;
+    outline: black solid 1px;
+    right: 5%;
+    width: 110%;
+    flex: 1 1 0;
+    container-type: inline-size;
+    container-name: controller;
+}
+
+#gameControllerEl {
+    display: flex;
+    flex-flow: row;
+    height: 100%;
+    width: 100%;
+    padding: 1%;
+}
+
+.button {
+    flex: 2 1 0;
+    padding: 1%;
+    margin: 2px
+}
+
+.game-footer {
+    height: 32px;
+    position: relative;
+    outline: black solid 1px;
+    right: 5%;
+    width: 110%;
+}
+
+.game-scores {
+    position: relative;
+    outline: black solid 1px;
+    right: 5%;
+    width: 110%;
+    display: flex;
+    flex-flow: column;
+    height: calc(100vh - 146px);
+}
+
+.game-scores > h1, #hiScoreScreenEl > h1 {
+    margin: 32px 32px 0 32px;
+    background-color: black;
+    color: white;
+}
+
+.score-card {
+    display: flex;
+    align-items: center;
+    margin: 0 32px;
+    width: calc(100% - 64px);
+    background-color: black;
+}
+
+.score-instance {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 4px 20px;
+    padding: 2px 4px;
+    color: white;
+    font-size: xx-large;
+}
+
+.score-pagination {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+}
+
+li > a {
+    margin: 2px;
+    padding: 2px;
+    width: 100%;
+    background-color: black;
+}
+
+
+@media  screen and (max-width:388px),
+        screen and (max-height: 574px){
+    
+    .game-machine {
+        width: calc(0.52 * 100vh);
+        min-width: 192px;
+    }
+
+    .game-scores > h1{
+        font-size: large;
+    }
+
+    .score-instance {
+        margin: 1px;
+        font-size: medium;
+    }
+}
+
+
+@container box (min-width: 576px){
+    #hiScoreScreenEl, #startBtnEl {
+        height: 576px;
+        width:  576px;
+        top:  calc(50% - 288px);
+        left: calc(50% - 288px);
+        font-size: xx-large;
+    }
+
+    #gameDisplayEl {
+        height: 576px;
+        width:  576px;
+        top:  calc(50% - 288px);
+        left: calc(50% - 288px);
+        grid-template-rows:    48px 48px 48px 48px 48px 48px 48px 48px 48px 48px 48px 48px;
+        grid-template-columns: 48px 48px 48px 48px 48px 48px 48px 48px 48px 48px 48px 48px;
+    }
+
+    .score-area { font-size: 48px; }
+
+    .sprite {
+        height: 48px;
+        width: 48px;
+    }
+}
+
+@container box (max-width: 384px){
+    #hiScoreScreenEl, #startBtnEl {
+        height: 192px;
+        width:  192px;
+        top:  calc(50% - 96px);
+        left: calc(50% - 96px);
+        font-size:x-large;
+    }
+
+    #hiScoreScreenEl > h1 {
+        font-size: medium;
+    }
+
+    #gameDisplayEl {
+        height: 192px;
+        width: 192px;
+        top:  calc(50% - 96px);
+        left: calc(50% - 96px);
+        grid-template-rows:    16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px;
+        grid-template-columns: 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px;
+    }
+
+    .score-area { font-size: 16px; }
+
+    .sprite {
+        height: 16px;
+        width: 16px;
+    }
+}
+

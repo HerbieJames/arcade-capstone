@@ -7,6 +7,7 @@ gridYinit  = 2;
 
 //--SNAKE DECLARATIONS--
 const startBtnEl = document.getElementById("startBtnEl");
+const hiScoreEl  = document.getElementById("hiScoreScreenEl");
 const upBtnEl    = document.getElementById("btnUpEl");
 const downBtnEl  = document.getElementById("btnDownEl");
 const leftBtnEl  = document.getElementById("btnLeftEl");
@@ -15,7 +16,7 @@ const playSpawnX = gridX + 1;
 const playSpawnY = Math.floor((gridY + gridYinit)/2);
 const maxSpeed   = 500;
 let speed        = maxSpeed;
-let active       = false;
+let gameOn       = false;
 let tick         = 0;
 let playerDir    = {x: -1, y: 0};
 let writeDir     = [];
@@ -71,10 +72,10 @@ function eatApple() {
     newSnakeBody.push(growth);
     apple.remove();
     addScore(100);
-    if (score % 1000 == 0) {  
+    if (score % 10000 == 0) {  
         stageLvl();
     } else {
-        speed -= 37.5
+        speed -= 5
         makeApple();
     } 
     speed = Math.floor(speed);
@@ -106,7 +107,7 @@ function initLevel() {
             initSprite(i, y, "ground.png", ["tile"]);
         }
     }
-    active = true;
+    gameOn = true;
 }
 
 /**Deletes all tile elements, pagebreaks and cell spaces.
@@ -124,10 +125,10 @@ function clearLvl() {
     grid.querySelectorAll("small").forEach((element) => {
         element.remove();
     });
-    active = false;
+    gameOn = false;
+    disableControl();
     speed = maxSpeed - score/200
     console.log("speed:", speed);
-    disableControl();
     player.remove();
     player = undefined;
     snakeBody.forEach((element) => {
@@ -262,26 +263,45 @@ function disableControl() {
 }
 
 function endGame() {
+    var scoreEls = [document.getElementById("scoreEl")];
+    var txt = document.createElement('p');
+    txt.classList.add(`score-area`);
+    txt.innerHTML = "GAME OVER";
+    grid.appendChild(txt);
+    scoreEls.push(txt);
+    console.log(scoreEls);
+    for (let i = 0; i <= 1; i++) {
+        const element = scoreEls[i];
+        console.log(element);
+        element.style.gridColumnStart = gridXinit;
+        element.style.gridColumnEnd   = gridX + 1;
+        element.style.gridRowStart    = gridYinit + i;
+        element.style.gridRowEnd      = gridY + i;
+        element.style.justifyContent  = "center"
+      }
     clearLvl();
-    document.getElementById("scoreEl").remove();
-    startBtnEl.style.display = "inline";
-    console.log("GAME OVER")
+    setTimeout(function() {
+        scoreEls.forEach((element) => {element.remove()});
+        hiScoreEl.style.display = "inline"
+        startBtnEl.style.display = "flex"
+        startReady = true;
+    }, 3000);
 }
 
 /**Initializes Game
  */
 function startUp() {
-    if (active == false) {
+    if (startReady == true) {
+        startReady = false;
         tick = 1;
-        score = 0
+        score = 0;
         startBtnEl.style.display = "none";
+        hiScoreEl.style.display = "none";
         var txt = document.createElement('p');
-        txt.style.color = "white";
-        txt.style.backgroundColor = "black";
         txt.classList.add(`score-area`);
+        txt.id               = `scoreEl`;
+        txt.innerHTML        = "000000";
         txt.style.gridRow    = 1;
-        txt.id = `scoreEl`;
-        txt.innerHTML = "000000";
         txt.style.gridColumn = 1;
         grid.appendChild(txt);
         initLevel();
@@ -294,9 +314,9 @@ function startUp() {
 /**Runs every 500, and shuffles through tick values 1 -> 4 (1, 2, 3, 4, 1...)
 */
 function delta(){
-    if ((active == false) && (tick % 2 == 0)) {
+    if ((gameOn == false) && (tick % 2 == 0)) {
         startBtnEl.innerHTML = startBtnEl.innerHTML == "" ? "START" : "";
-    } else if (active == false) {
+    } else if (gameOn == false) {
     } else {
         initPlayer();
         toggleSprites();

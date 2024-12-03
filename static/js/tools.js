@@ -178,3 +178,14 @@ function addScore(x) {
     document.getElementById("scoreEl").innerHTML = scoreTxt;
     console.log(x+ " Points! Score: "+ scoreTxt);
 }
+
+let startReady = true;
+function tryStartUp() {
+    try {
+        startUp(); 
+    } catch (error) { 
+        console.log(error);
+        document.getElementById("startBtnEl").innerHTML = "OUT OF ORDER";
+    }
+    }
+setTimeout(document.addEventListener('keyup', tryStartUp), 1500);
