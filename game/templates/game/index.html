@@ -2,14 +2,18 @@
 
 {% load static %}
 
+{% block head_el %}
+<link rel="stylesheet" href="{% static 'css/indexStyles.css' %}">
+{% endblock head_el %}
+
 {% block content %}
 <!--Menu Page-->
 <main class = "menu page-break">
     <div class = "menu-row">
-        <a class = "card" href="{% url 'snake' %}">
+        <div class = "card">
             <img class="thumb" src = "{% static 'gifs/snake_thumb.gif' %}">
             <div class = "card-container">
-                <h1>--- Snake--- </h1>
+                <h1>Snake</h1>
                 <h3>Personal Best:</h3>
                 {% for score in object_list %}
                     <p class="card-score">
@@ -18,11 +22,15 @@
                     </p>
                 {% endfor %}
             </div>
-        </a>
-        <a class = "card page-break" href="{% url 'frogger' %}">
+            <div class = "card-buttons">
+                <a href="{% url 'snake' %}">play</a>
+                <a href="{% url 'snake' %}">my scores</a>
+            </div>
+        </div>
+        <div class = "card page-break">
             <img class="thumb" src = "{% static 'gifs/snake_thumb.gif' %}">
             <div class = "card-container">
-                <h1>--- Frogger ---</h1>
+                <h1>Frogger</h1>
                 <h3>Personal Best:</h3>
                 {% for score in object_list %}
                     <p class="card-score">
@@ -31,7 +39,11 @@
                     </p>
                 {% endfor %}
             </div>
-        </a>
+            <div class = "card-buttons">
+                <a href="{% url 'frogger' %}">play</a>
+                <a href="{% url 'frogger' %}">my scores</a>
+            </div>
+        </div>
     </div>
 </main>
 <!--Menu Page End-->

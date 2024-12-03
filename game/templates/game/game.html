@@ -2,11 +2,16 @@
 
 {% load static %}
 
-{% block tab_title %}
-    <title>Game Machine - Capstone Arcade</title>
-{% endblock tab_title %}
+{% block head_el %}
+    <!--Styles-->
+    <link rel="stylesheet" href="{% static 'css/gameStyles.css' %}">
+    {% block tab_title %}
+        <title>G A M E - M A C H I N E</title>
+    {% endblock tab_title %}
+{% endblock head_el %}
 
 {% block content %}
+
 <!--Game Page-->
 <div id = "page-top">
     <div class = "area game-machine">
@@ -14,29 +19,29 @@
             <header class = "area game-header">
                 <!--Game Header-->
                 {% block header %}
-                    <div class="headerEl">
-                        <h1>G A M E - M A C H I N E<h1>
-                    </div>
                 {% endblock header %}
                 <!--Game Header End-->
             </header>
             <div class = "area game-window">
                 <!--Game Display-->
-                <button id = "startBtnEl" onclick="tryStartUp()">START</button>
+                <div id="hiScoreScreenEl">
+                    <button id = "startBtnEl" onclick="tryStartUp()"> START </button>
+                    <h1>-HIGH SCORES-</h1>
+                    {% for score in object_list %}
+                        <div class = "score-card">
+                            <p class="score-instance">
+                                <span class="score-value">{{score.value}}</span>
+                                <span class="score-alias">{{score.alias}}</span>
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
                 <div id = "gameDisplayEl"></div>
                 <!--Game Display End-->
             </div>
             <div class = "area game-pad">
                 <!--Controls-->
                 {% block controls %}
-                    <div id = "gameControllerEl">
-                        <button class= "button" id="btnLeftEl">←, A</button>
-                        <div style="display:flex; flex-flow:column; flex: 1 1 0;">
-                            <button class= "button" id="btnUpEl">↑, W, Space</button>
-                            <button class= "button" id="btnDownEl">↓, S</button>
-                        </div>
-                        <button class= "button" id="btnRightEl">→, D</button>
-                    </div>
                 {% endblock controls %}
                 <!--Game Controls End-->
             </div>
@@ -47,9 +52,6 @@
     <div class = "area game-machine">
         <!--Game Scores-->
         {% block scores %}
-            <article class = "area game-scores">
-                <h1>Hi-Scores</h1>
-            </article>
         {% endblock scores %}
         <!--Game Scores End-->
         <div class = "area game-footer">
@@ -58,16 +60,6 @@
 </div>
 <br>
 <script src="{% static 'js/tools.js' %}"></script>
-<script>
-    function tryStartUp() {
-        try { 
-            startUp(); 
-        } catch { 
-            console.log("Unable to Load");
-            document.getElementById("startBtnEl").style.backgroundColor = "black";
-        }
-    }
-</script>
 <!--Game Page End-->
 
 {% endblock %}

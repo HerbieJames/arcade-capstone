@@ -20,12 +20,12 @@
 {% block controls %}
     <!--Snake Controls-->
     <div id = "gameControllerEl">
-        <button class= "button" id="btnLeftEl">←, A</button>
+        <button class= "button" id="btnLeftEl" onclick="tryStartUp()">←, A</button>
         <div style="display:flex; flex-flow:column; flex: 1 1 0;">
-            <button class= "button" id="btnUpEl">↑, W, Space</button>
-            <button class= "button" id="btnDownEl">↓, S</button>
+            <button class= "button" id="btnUpEl" onclick="tryStartUp()">↑, W</button>
+            <button class= "button" id="btnDownEl" onclick="tryStartUp()">↓, S</button>
         </div>
-        <button class= "button" id="btnRightEl">→, D</button>
+        <button class= "button" id="btnRightEl" onclick="tryStartUp()">→, D</button>
     </div>
     <script src="{% static 'js/snake.js' %}" defer></script>
     <script> const ImgsPath = "{% static 'images_snake/' %}"; </script>
@@ -35,7 +35,7 @@
 {% block scores %}
     <!--Snake Scores-->
     <article class = "area game-scores">
-        <h1>Hi-Scores</h1>
+        <h1>Personal Bests</h1>
         {% for score in object_list %}
             <div class = "score-card">
                 <p class="score-instance">
