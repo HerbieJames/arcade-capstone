@@ -12,8 +12,8 @@
     <div class = "menu-row">
         <div class = "card">
             <img class="thumb" src = "{% static 'gifs/snake_thumb.gif' %}">
+            <h1>Snake</h1>
             <div class = "card-container">
-                <h1>Snake</h1>
                 <h3>Personal Best:</h3>
                 {% for score in object_list %}
                     <p class="card-score">
@@ -23,14 +23,14 @@
                 {% endfor %}
             </div>
             <div class = "card-buttons">
-                <a href="{% url 'snake' %}">play</a>
-                <a href="{% url 'snake' %}">my scores</a>
+                <a href="{% url 'snake' %}">PLAY</a>
+                <a href="{% url 'snake' %}">MY SCORES</a>
             </div>
         </div>
         <div class = "card page-break">
             <img class="thumb" src = "{% static 'gifs/snake_thumb.gif' %}">
+            <h1>Frogger</h1>
             <div class = "card-container">
-                <h1>Frogger</h1>
                 <h3>Personal Best:</h3>
                 {% for score in object_list %}
                     <p class="card-score">
@@ -40,8 +40,8 @@
                 {% endfor %}
             </div>
             <div class = "card-buttons">
-                <a href="{% url 'frogger' %}">play</a>
-                <a href="{% url 'frogger' %}">my scores</a>
+                <a href="{% url 'frogger' %}">PLAY</a>
+                <a href="{% url 'frogger' %}">MY SCORES</a>
             </div>
         </div>
     </div>

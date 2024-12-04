@@ -72,14 +72,12 @@ function eatApple() {
     newSnakeBody.push(growth);
     apple.remove();
     addScore(100);
-    if (score % 10000 == 0) {  
+    if (score % 5000 == 0) {
         stageLvl();
     } else {
         speed -= 5
         makeApple();
     } 
-    speed = Math.floor(speed);
-    if (speed < 25) {speed = 25;}
     console.log(speed)
 }
 
@@ -98,10 +96,23 @@ function checkGrow() {
     newSnakeBody = keep;
 }
 
+function makeWalls() {
+    var i = Math.random() < 0.5 ? {x: 0, y: 1} : {x: 1, y: 0}
+    var initWall = {
+        x: gridXinit + 2 + Math.floor((gridX - gridXinit - 5)*Math.random()),
+        y: gridYinit + 2 + Math.floor((gridY - gridYinit - 5)*Math.random())
+    }
+    initSprite(initWall.x, initWall.y, "wall.png", ["tile", "hurts", "obst"]);
+    initSprite(initWall.x + i.x, initWall.y + i.y, "wall.png", ["tile", "hurts", "obst"]);
+    initSprite(initWall.x + 2*i.x, initWall.y + 2*i.y, "wall.png", ["tile", "hurts", "obst"]);
+}
+
 /**Initializes level by initializing tile sprites into each row
  */
 function initLevel() {
     makeApple();
+    if (score > 0) { makeWalls(); }
+    if (score > 5000) { makeWalls(); }
     for (let y = (gridYinit); y <= gridY; y++) {
         for (let i = gridXinit; i <= gridX; i++) {
             initSprite(i, y, "ground.png", ["tile"]);
@@ -127,7 +138,8 @@ function clearLvl() {
     });
     gameOn = false;
     disableControl();
-    speed = maxSpeed - score/200
+    speed = maxSpeed - score/100
+    if (speed < 300) { speed = 300 }
     console.log("speed:", speed);
     player.remove();
     player = undefined;

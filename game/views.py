@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 class GameList(generic.ListView):
-    queryset = Score.objects.all()
+    queryset = Score.objects.all().order_by("-value")
     template_name = "game/index.html"
     paginate_by = 1
 

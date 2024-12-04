@@ -38,6 +38,11 @@
     height: 100%;
 }
 
+#headerEl > h1 {
+    color: black;
+    text-shadow: 0px 0px 5px white;
+}
+
 .game-window {
     background: 
         linear-gradient(180deg, rgba(255,255,255,0.25), rgba(0,0,0, 1)),
@@ -102,7 +107,7 @@
     z-index: 0;
 }
 
-.point {
+.point, .obst {
     z-index: 1;
 }
 
@@ -131,7 +136,8 @@
 .button {
     flex: 2 1 0;
     padding: 1%;
-    margin: 2px
+    margin: 2px;
+    box-shadow: 0px 2px 4px black;
 }
 
 .game-footer {
@@ -189,6 +195,9 @@ li > a {
     background-color: black;
 }
 
+.game-scores, .game-header, .game-footer, .game-machine {
+    box-shadow: 0px 8px 6px 2px;
+}
 
 @media  screen and (max-width:388px),
         screen and (max-height: 574px){
