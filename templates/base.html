@@ -1,6 +1,9 @@
 {% load static %}
 
 {% url 'home' as home_url %}
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'account_logout' as logout_url %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,10 +28,23 @@
             <img src = "{% static 'images/favicon.PNG' %}" alt="home button" name="home">
         </a>
         <span class = "title">CA</span>
-        <a href="#" class = "header-button">
-            <label for="profile">PROFILE</label>
-            <img src = "{% static 'images/dwarf.PNG' %}" alt="profile button" name="profile">
-        </a>
+        <div class = "header-span">
+        {% if user.is_authenticated %}
+            <a href="{% url 'account_logout' %}" class = "header-button {% if request.path == logout_url %}dull{% endif %}">
+                <label for="log-out">LOG-OUT</label>
+                <img src = "{% static 'images/dwarf.PNG' %}" alt="log-out button" name="log-out">
+            </a>
+        {% else %}
+            <a href="{% url 'account_login' %}" class = "header-button {% if request.path == login_url %}dull{% endif %}">
+                <label for="log-in">LOG-IN</label>
+                <img src = "{% static 'images/dwarf.PNG' %}" alt="log-in button" name="log-in">
+            </a>
+            <a href="{% url 'account_signup' %}" class = "header-button {% if request.path == signup_url %}dull{% endif %}">
+                <label for="register">REGISTER</label>
+                <img src = "{% static 'images/zombie.PNG' %}" alt="register button" name="register">
+            </a>
+        {% endif %}
+        </div>
     </nav>
     <!--Navigation End-->
     <div class = "page-wrap">
