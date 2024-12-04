@@ -10,6 +10,9 @@ body {
     flex-flow: column;
     align-items: center;
     overflow: hidden;
+    height: 100%;
+    background: url(/static/images/lunacityarcade.jpeg) no-repeat fixed center;
+    background-size: cover;
 }
 
 footer, .shell-header {
@@ -80,24 +83,12 @@ br {
     margin-top: 12px;
 }
 
-.backImg {
-    z-index: -1;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
 .page-wrap {
     height: calc(100vh - 48px);
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
     scrollbar-color: black grey;
-}
-
-.area {
-    background-color: aquamarine;
-    border: 1px solid black;
 }
 
 .score-value, .score-alias {
