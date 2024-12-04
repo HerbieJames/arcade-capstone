@@ -1,7 +1,38 @@
+body {
+    background: url(/static/images/lunacityarcadeWHITE.jpeg) no-repeat fixed center;
+    background-size: cover;
+}
+
 footer {
-    background-color: aqua;
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
+}
+
+input {
+    margin: 0.5rem 0;
+    height: 100%;
+}
+
+p > a {
+    color: aqua;
+    display: inline;
+}
+
+p > label {
+    position: inherit;
+    height: 100%;
+    margin: 0 0.5rem;
+    background: none;
+    color: black;
+    font-size: medium;
+    box-shadow: none;
+}
+
+.submit-div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 1em;
 }
