@@ -20,7 +20,7 @@
 <body>
     <!--Navigation -->
     <nav class = "shell-header">
-        <a href="{% url 'home' %}" class = "header-button">
+        <a href="{% url 'home' %}" class = "header-button {% if request.path == home_url %}dull{% endif %}">
             <label for="home">HOME</label>
             <img src = "{% static 'images/favicon.PNG' %}" alt="home button" name="home">
         </a>
