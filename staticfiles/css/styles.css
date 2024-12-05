@@ -42,9 +42,17 @@ footer {
 .header-span {
     display: flex;
     flex-flow: row;
-    justify-content: space-between;
     height: 100%;
     right: 0;
+}
+
+.header-span > small {
+    z-index: 1;
+    position: absolute;
+    height: 1em;
+    right: 4px;
+    text-wrap: nowrap;
+    font-size: 0.75em;
 }
 
 .title {
@@ -68,6 +76,12 @@ footer {
     margin-left: auto;
     margin-right: auto;
     height: 100%;
+}
+
+.log-out {
+    position: relative;
+    height: calc(100% - 0.70em);
+    top: 0.70em;
 }
 
 a {
