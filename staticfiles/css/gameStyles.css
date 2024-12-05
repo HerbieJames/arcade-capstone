@@ -27,7 +27,7 @@
     display: flex;
     flex-flow: column;
     flex: 1 1 0;
-    height: calc(100vh - 68px);
+    height: calc(100vh - 76px);
 }
 
 #hiScoreScreenEl, #startBtnEl, h1, .button {
@@ -35,10 +35,7 @@
 }
 
 .game-header {
-    position: relative;
     outline: black solid 1px;
-    right: 5%;
-    width: 110%;
     height: 48px;
     padding: 4px;
 }
@@ -106,6 +103,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    font-family: var(--font-game);
     font-size: 32px;
     color: white;
 }
@@ -128,11 +126,8 @@
 }
 
 .game-pad {
-    position: relative;
     outline: black solid 1px;
-    right: 5%;
-    width: 110%;
-    flex: 1 1 0;
+    flex: 1 0 0;
     container-type: inline-size;
     container-name: controller;
 }
@@ -141,8 +136,9 @@
     display: flex;
     flex-flow: row;
     height: 100%;
-    width: 100%;
+    width: 90%;
     padding: 1%;
+    margin: 0 5%;
 }
 
 .button {
@@ -152,19 +148,8 @@
     box-shadow: 0px 2px 4px black;
 }
 
-.game-footer {
-    height: 32px;
-    position: relative;
-    outline: black solid 1px;
-    right: 5%;
-    width: 110%;
-}
-
 .game-scores {
-    position: relative;
-    outline: black solid 1px;
-    right: 5%;
-    width: 110%;
+    width: 100%;
     display: flex;
     flex-flow: column;
     height: calc(100vh - 146px);
@@ -207,28 +192,15 @@ li > a {
     background-color: black;
 }
 
+.game-footer {
+    height: 32px;
+    outline: black solid 1px;
+    width: 100%;
+}
+
 .game-scores, .game-header, .game-footer, .game-machine {
     box-shadow: 0px 8px 6px 2px;
 }
-
-@media  screen and (max-width:388px),
-        screen and (max-height: 574px){
-    
-    .game-machine {
-        width: calc(0.52 * 100vh);
-        min-width: 192px;
-    }
-
-    .game-scores > h1{
-        font-size: large;
-    }
-
-    .score-instance {
-        margin: 1px;
-        font-size: medium;
-    }
-}
-
 
 @container box (min-width: 576px){
     #hiScoreScreenEl, #startBtnEl {
@@ -258,10 +230,10 @@ li > a {
 
 @container box (max-width: 384px){
     #hiScoreScreenEl, #startBtnEl {
-        height: 192px;
-        width:  192px;
-        top:  calc(50% - 96px);
-        left: calc(50% - 96px);
+        height: 288px;
+        width: 288px;
+        top:  calc(50% - 144px);
+        left: calc(50% - 144px);
         font-size:x-large;
     }
 
@@ -270,19 +242,28 @@ li > a {
     }
 
     #gameDisplayEl {
-        height: 192px;
-        width: 192px;
-        top:  calc(50% - 96px);
-        left: calc(50% - 96px);
-        grid-template-rows:    16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px;
-        grid-template-columns: 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px 16px;
+        height: 288px;
+        width: 288px;
+        top:  calc(50% - 144px);
+        left: calc(50% - 144px);
+        grid-template-rows:    24px 24px 24px 24px 24px 24px 24px 24px 24px 24px 24px 24px;
+        grid-template-columns: 24px 24px 24px 24px 24px 24px 24px 24px 24px 24px 24px 24px;
     }
 
-    .score-area { font-size: 16px; }
+    .score-area { font-size: 24px; }
+
+    .game-scores > h1{
+        font-size: large;
+    }
+
+    .score-instance {
+        margin: 1px;
+        font-size: medium;
+    }
 
     .sprite {
-        height: 16px;
-        width: 16px;
+        height: 24px;
+        width: 24px;
     }
 }
 

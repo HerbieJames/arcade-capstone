@@ -48,7 +48,7 @@ h3 {
 .thumb {
     flex: 1 0 0;
     height: 40%;
-    margin: 5%;
+    margin: 1.5em 3em;
     box-shadow: 0px 0px 8px 4px;
 }
 
@@ -79,6 +79,7 @@ h3 {
 }
 
 .card-buttons {
+    z-index: 2;
     flex: 0 0 0;
     display: flex;
     justify-content: space-around;
