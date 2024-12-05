@@ -1,10 +1,22 @@
-{% extends "account/base.html" %}
+{% extends "base.html" %}
 
+{% load static %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock head_title %}
+{% block head_el %}
+  <title>Sign-up</title>
+  <!--Styles-->
+  <link rel="stylesheet" href="{% static 'css/accountStyles.css' %}">
+  <!--Favicon-->
+  <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.PNG' %}">
+{% endblock head_el %}
 
 {% block content %}
+<div class="img-div">
+  <i class="title">Track your highest scores with an account!</i>
+  <img src = "{% static 'images/dwarf.PNG' %}" alt="" name="banner">
+</div>
+
 <h1>{% trans "Sign Up" %}</h1>
 
 <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
@@ -15,7 +27,9 @@
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
+  <div class="submit-div">
+    <button type="submit">{% trans "Sign Up" %} &raquo;</button>
+  </div>
 </form>
 
 {% endblock content %}

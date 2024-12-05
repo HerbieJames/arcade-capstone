@@ -32,16 +32,16 @@
         {% if user.is_authenticated %}
             <a href="{% url 'account_logout' %}" class = "header-button {% if request.path == logout_url %}dull{% endif %}">
                 <label for="log-out">LOG-OUT</label>
-                <img src = "{% static 'images/dwarf.PNG' %}" alt="log-out button" name="log-out">
+                <i name="log-out"></i>
             </a>
         {% else %}
             <a href="{% url 'account_login' %}" class = "header-button {% if request.path == login_url %}dull{% endif %}">
                 <label for="log-in">LOG-IN</label>
-                <img src = "{% static 'images/dwarf.PNG' %}" alt="log-in button" name="log-in">
+                <i name="log-in"></i>
             </a>
             <a href="{% url 'account_signup' %}" class = "header-button {% if request.path == signup_url %}dull{% endif %}">
                 <label for="register">REGISTER</label>
-                <img src = "{% static 'images/zombie.PNG' %}" alt="register button" name="register">
+                <i name="register"></i>
             </a>
         {% endif %}
         </div>
