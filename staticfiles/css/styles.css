@@ -144,7 +144,7 @@ br {
     .title { font-size: 36px; }
 }
 
-@media  screen and (max-width:193px),
-        screen and (max-height: 379px){
+@media  screen and (max-width: 288px),
+        screen and (max-height: 288px){
     .page-wrap > * { display: none; }
 }

@@ -25,6 +25,7 @@ let newSnakeBody = [];
 let playerImg    = 1;
 let player;
 let apple;
+let nameEl;
 
 // FUNCTIONS
 
@@ -197,13 +198,18 @@ function movePlayer(){
     if (headY < gridYinit) { headY = gridY; }
     if (headX > gridX) { headX = gridXinit; }
     if (headY > gridY) { headY = gridYinit; }
-    ahead = allAtXY(headX, headY);
     setSpriteXY(player, headX, headY);
     setSpriteDeg(player, dirToDeg(playerDir));
     snakeBody.forEach((element) => {
         targetXY = setSpriteXY(element, targetXY.x, targetXY.y);
     })
-    if (checkXY(ahead).death == true) { endGame(); }
+    ahead = allAtXY(headX, headY);
+    if (newSnakeBody.length != 0) {
+        if ((checkXY(ahead).death == true) ||
+        ((newSnakeBody[0].xy.x == headX)&&(newSnakeBody[0].xy.y == headY))) {
+            endGame();
+        }
+    } else if (checkXY(ahead).death == true) { endGame(); }
     if (checkXY(ahead).score == true) { eatApple(); }
 }
 
@@ -274,30 +280,42 @@ function disableControl() {
     document.removeEventListener('keyup', buttonMove);
 }
 
+function typeName() {
+    nameEl = document.createElement('input');
+    nameEl.setAttribute("type", "text")
+    nameEl.setAttribute("maxlength", "6")
+    nameEl.classList.add(`score-area`);
+    nameEl.id                    = `scoreNameEl`;
+    nameEl.innerHTML             = "AAAAAA";
+    nameEl.style.color           = "black";
+    nameEl.style.textTransform   = "uppercase";
+    nameEl.style.gridRow         = 1;
+    nameEl.style.gridColumnStart = 7;
+    nameEl.style.gridColumnEnd   = 13;
+    nameEl.style.direction       = "rtl";
+    grid.appendChild(nameEl);
+}
+
 function endGame() {
-    var scoreEls = [document.getElementById("scoreEl")];
     var txt = document.createElement('p');
     txt.classList.add(`score-area`);
     txt.innerHTML = "GAME OVER";
     grid.appendChild(txt);
-    scoreEls.push(txt);
-    console.log(scoreEls);
-    for (let i = 0; i <= 1; i++) {
-        const element = scoreEls[i];
-        console.log(element);
-        element.style.gridColumnStart = gridXinit;
-        element.style.gridColumnEnd   = gridX + 1;
-        element.style.gridRowStart    = gridYinit + i;
-        element.style.gridRowEnd      = gridY + i;
-        element.style.justifyContent  = "center"
-      }
+    txt.style.gridColumnStart = gridXinit;
+    txt.style.gridColumnEnd   = gridX + 1;
+    txt.style.gridRowStart    = gridYinit;
+    txt.style.gridRowEnd      = gridY;
+    txt.style.justifyContent  = "center"
+
     clearLvl();
-    setTimeout(function() {
+
+    typeName();
+    /* setTimeout(function() {
         scoreEls.forEach((element) => {element.remove()});
         hiScoreEl.style.display = "inline"
         startBtnEl.style.display = "flex"
         startReady = true;
-    }, 3000);
+    }, 3000); */
 }
 
 /**Initializes Game
