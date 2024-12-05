@@ -1,5 +1,7 @@
 h1 {
-    font-size: x-large;
+    font-family: var(--font-game);
+    font-size: xx-large;
+    font-weight: lighter;
     text-align: center;
     align-items: center;
 }
