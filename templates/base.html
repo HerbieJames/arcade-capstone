@@ -30,7 +30,8 @@
         <span class = "title">CA</span>
         <div class = "header-span">
         {% if user.is_authenticated %}
-            <a href="{% url 'account_logout' %}" class = "header-button {% if request.path == logout_url %}dull{% endif %}">
+            <small class = "user-span">Signed in as {{ user }}</small>
+            <a href="{% url 'account_logout' %}" class = "header-button log-out {% if request.path == logout_url %}dull{% endif %}">
                 <label for="log-out">LOG-OUT</label>
                 <i name="log-out"></i>
             </a>
