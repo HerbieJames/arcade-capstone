@@ -9,6 +9,6 @@ class Score(models.Model):
     player      = models.ForeignKey(
         User, on_delete=models.SET_NULL, related_name="personal_scores", null=True, blank=True
     )
-    alias       = models.CharField(max_length=6)
+    alias       = models.CharField(max_length=6, default="AAAAAA")
     created_on  = models.DateTimeField(auto_now_add=True)
-    value       = models.CharField(max_length=6)
+    value       = models.CharField(max_length=6, default="000000")

@@ -27,7 +27,7 @@
                 <div id="hiScoreScreenEl">
                     <button id = "startBtnEl" onclick="tryStartUp()"> START </button>
                     <h1>-HIGH SCORES-</h1>
-                    {% for score in object_list %}
+                    {% for score in scores %}
                         <div class = "score-card">
                             <p class="score-instance">
                                 <span class="score-value">{{score.value}}</span>
@@ -36,7 +36,11 @@
                         </div>
                     {% endfor %}
                 </div>
-                <form id = "gameDisplayEl"></form>
+                <form id = "gameDisplayEl" method="post">
+                    {{ score_form }}
+                    {% csrf_token %}
+                    <button id="submitBtnEl" class = "score-area" type="submit">Submit</button>
+                </form>
                 <!--Game Display End-->
             </div>
             <div class = "area game-pad">
@@ -50,15 +54,18 @@
 </div>
 <div id = "page-scores" name = "page-scores">
     <div class = "area game-machine">
-        <!--Game Scores-->
-        {% block scores %}
-        {% endblock scores %}
-        <!--Game Scores End-->
+        {% if user.is_authenticated %}
+            <!--Game Scores-->
+            {% block scores %}
+            {% endblock scores %}
+            <!--Game Scores End-->
+        {% endif %}
         <div class = "area game-footer">
         </div>
     </div>
 </div>
 <br>
+
 <script src="{% static 'js/tools.js' %}"></script>
 <!--Game Page End-->
 

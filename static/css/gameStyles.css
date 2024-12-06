@@ -80,6 +80,10 @@
     box-shadow: 0px 0px 20px rgba(255,255,255,0.75);
 }
 
+#gameDisplayEl > label {
+    display: none;
+}
+
 #hiScoreScreenEl, #startBtnEl {
     z-index: 1;
     position: absolute;
@@ -103,9 +107,31 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    grid-row-start: 1;
+    grid-column: span 6;
+    outline: none;
+    border: none;
     font-family: var(--font-game);
     font-size: 32px;
+    text-transform: uppercase;
+    background-color: black;
     color: white;
+}
+
+#id_value {
+    display: none;
+}
+
+#id_alias {
+    display: none;
+    direction: rtl;
+}
+
+#submitBtnEl {
+    margin: 0 auto;
+    grid-column-start: 1;
+    grid-column-end: 13;
+    grid-row-start: 12;
 }
 
 .sprite {
@@ -149,10 +175,10 @@
 }
 
 .game-scores {
-    width: 100%;
     display: flex;
     flex-flow: column;
     height: calc(100vh - 146px);
+    width: 100%;
 }
 
 .game-scores > h1, #hiScoreScreenEl > h1 {

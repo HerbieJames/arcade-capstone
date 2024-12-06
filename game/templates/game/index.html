@@ -15,42 +15,66 @@
 <main class = "menu page-break">
     <div class = "menu-row">
         <div class = "card">
+            {% if user.is_authenticated %}
+            {% else %}
+                <div class = "card-container"></div>
+            {% endif %}
             <div class="thumb">
                 <img src = "{% static 'gifs/snake_thumb.gif' %}">
             </div>
             <h1>Snake</h1>
             <div class = "card-container">
-                <h3>Personal Best:</h3>
-                {% for score in object_list %}
-                    <p class="card-score">
-                        <span class="score-value">{{score.value}}</span>
-                        <span class="score-alias">{{score.alias}}</span>
-                    </p>
-                {% endfor %}
+                {% if user.is_authenticated %}
+                    <h3>Personal Best:</h3>
+                    {% for score in my_snake|slice:":1" %}
+                        <p class="card-score">
+                            <span class="score-value">{{score.value}}</span>
+                            <span class="score-alias">{{score.alias}}</span>
+                        </p>
+                    {% endfor %}
+                {% endif %}
             </div>
             <div class = "card-buttons">
                 <a href="{% url 'snake' %}">PLAY</a>
-                <a href="{% url 'snake' %}#page-scores">MY SCORES</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'snake' %}#page-scores">MY SCORES</a>
+                {% endif %}
             </div>
+            {% if user.is_authenticated %}
+            {% else %}
+                <div class = "card-container"></div>
+            {% endif %}
         </div>
         <div class = "card page-break">
+            {% if user.is_authenticated %}
+            {% else %}
+                <div class = "card-container"></div>
+            {% endif %}
             <div class="thumb">
                 <img src = "{% static 'gifs/snake_thumb.gif' %}">
             </div>
             <h1>Frogger</h1>
             <div class = "card-container">
-                <h3>Personal Best:</h3>
-                {% for score in object_list %}
-                    <p class="card-score">
-                        <span class="score-value">{{score.value}}</span>
-                        <span class="score-alias">{{score.alias}}</span>
-                    </p>
-                {% endfor %}
+                {% if user.is_authenticated %}
+                    <h3>Personal Best:</h3>
+                    {% for score in my_frogger|slice:":1" %}
+                        <p class="card-score">
+                            <span class="score-value">{{score.value}}</span>
+                            <span class="score-alias">{{score.alias}}</span>
+                        </p>
+                    {% endfor %}
+                {% endif %}
             </div>
             <div class = "card-buttons">
                 <a href="{% url 'frogger' %}">PLAY</a>
-                <a href="{% url 'frogger' %}#page-scores">MY SCORES</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'frogger' %}#page-scores">MY SCORES</a>
+                {% endif %}
             </div>
+            {% if user.is_authenticated %}
+            {% else %}
+                <div class = "card-container"></div>
+            {% endif %}
         </div>
     </div>
 </main>
