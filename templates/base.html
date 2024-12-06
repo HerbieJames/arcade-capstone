@@ -25,7 +25,7 @@
     <nav class = "shell-header">
         <a href="{% url 'home' %}" class = "header-button {% if request.path == home_url %}dull{% endif %}">
             <label for="home">HOME</label>
-            <img src = "{% static 'images/favicon.PNG' %}" alt="home button" name="home">
+            <img src = "{% static 'images/favicon.PNG' %}" alt="home button" id="home">
         </a>
         <span class = "title">CA</span>
         <div class = "header-span">
@@ -33,16 +33,16 @@
             <small class = "user-span">Signed in as {{ user }}</small>
             <a href="{% url 'account_logout' %}" class = "header-button log-out {% if request.path == logout_url %}dull{% endif %}">
                 <label for="log-out">LOG-OUT</label>
-                <i name="log-out"></i>
+                <i id="log-out"></i>
             </a>
         {% else %}
             <a href="{% url 'account_login' %}" class = "header-button {% if request.path == login_url %}dull{% endif %}">
                 <label for="log-in">LOG-IN</label>
-                <i name="log-in"></i>
+                <i id="log-in"></i>
             </a>
             <a href="{% url 'account_signup' %}" class = "header-button {% if request.path == signup_url %}dull{% endif %}">
                 <label for="register">REGISTER</label>
-                <i name="register"></i>
+                <i id="register"></i>
             </a>
         {% endif %}
         </div>

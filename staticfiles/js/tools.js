@@ -1,11 +1,13 @@
 // DECLARTIONS 
-const grid       = document.getElementById("gameDisplayEl");
-const imgRoot    = ImgsPath;
+const grid    = document.getElementById("gameDisplayEl");
+const imgRoot = ImgsPath;
 let gridX      = 11;
 let gridY      = 11;
 let gridXinit  = 2;
 let gridYinit  = 2;
 let score      = 0;
+let scoreEl;
+let nameEl;
 
 // FUNCTIONS
 /**Returns the tile element on or closest ahead of a given co-ordinate on the grid.
@@ -175,17 +177,19 @@ function addScore(x) {
     var scoreTxt = "";
     for (let i = 1; i <= (6 - Math.floor(Math.log10(score)+1)); i++) { scoreTxt += "0"; }
     scoreTxt += score;
-    document.getElementById("scoreEl").innerHTML = scoreTxt;
+    document.getElementById("id_value").setAttribute("value", scoreTxt)
     console.log(x+ " Points! Score: "+ scoreTxt);
 }
 
 let startReady = true;
+
 function tryStartUp() {
-    try {
+    // try {
         startUp(); 
-    } catch (error) { 
-        console.log(error);
-        document.getElementById("startBtnEl").innerHTML = "OUT OF ORDER";
+    // } catch (error) { 
+    //    console.log(error);
+    //    document.getElementById("startBtnEl").innerHTML = "OUT OF ORDER";
+    // }
     }
-    }
+
 setTimeout(document.addEventListener('keyup', tryStartUp), 1500);

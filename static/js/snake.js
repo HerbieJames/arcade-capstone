@@ -25,7 +25,6 @@ let newSnakeBody = [];
 let playerImg    = 1;
 let player;
 let apple;
-let nameEl;
 
 // FUNCTIONS
 
@@ -281,19 +280,11 @@ function disableControl() {
 }
 
 function typeName() {
-    nameEl = document.createElement('input');
-    nameEl.setAttribute("type", "text")
-    nameEl.setAttribute("maxlength", "6")
+    nameEl = document.getElementById('id_alias');
     nameEl.classList.add(`score-area`);
-    nameEl.id                    = `scoreNameEl`;
-    nameEl.innerHTML             = "AAAAAA";
-    nameEl.style.color           = "black";
-    nameEl.style.textTransform   = "uppercase";
-    nameEl.style.gridRow         = 1;
-    nameEl.style.gridColumnStart = 7;
-    nameEl.style.gridColumnEnd   = 13;
-    nameEl.style.direction       = "rtl";
-    grid.appendChild(nameEl);
+    nameEl.style.display = "block"
+    nameEl.focus();
+    nameEl.select();
 }
 
 function endGame() {
@@ -325,15 +316,11 @@ function startUp() {
         startReady = false;
         tick = 1;
         score = 0;
-        startBtnEl.style.display = "none";
         hiScoreEl.style.display = "none";
-        var txt = document.createElement('p');
-        txt.classList.add(`score-area`);
-        txt.id               = `scoreEl`;
-        txt.innerHTML        = "000000";
-        txt.style.gridRow    = 1;
-        txt.style.gridColumn = 1;
-        grid.appendChild(txt);
+        scoreEl = document.getElementById('id_value');
+        console.log(scoreEl);
+        scoreEl.classList.add(`score-area`);
+        scoreEl.style.display = "block"
         initLevel();
         gridHTML();
         console.log("ImgRoot:");
