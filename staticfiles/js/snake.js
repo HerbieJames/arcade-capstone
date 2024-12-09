@@ -287,9 +287,10 @@ function typeName() {
 }
 
 function tryAgain(e) {
-    var scoreEls = document.getElementsByClassName("score-area")
     if (e.code = "Escape") {
-        scoreEls.forEach((element) => {element.remove()});
+        document.getElementsByClassName("score-area").forEach(
+            (element) => {element.remove()}
+        );
         hiScoreEl.style.display = "inline"
         startBtnEl.style.display = "flex"
         document.removeEventListener('keyup', tryAgain(e));
