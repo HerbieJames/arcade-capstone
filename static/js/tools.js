@@ -1,5 +1,9 @@
 // DECLARTIONS 
 const grid    = document.getElementById("gameDisplayEl");
+const startBtnEl = document.getElementById("startBtnEl");
+const hiScoreEl  = document.getElementById("hiScoreScreenEl");
+const submitEl   = document.getElementById("submitBtnEl");
+const retryEl   = document.getElementById("retryBtnEl");
 const imgRoot = ImgsPath;
 let gridX      = 11;
 let gridY      = 11;

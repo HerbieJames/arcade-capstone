@@ -6,8 +6,6 @@ gridXinit  = 2;
 gridYinit  = 2;
 
 //--SNAKE DECLARATIONS--
-const startBtnEl = document.getElementById("startBtnEl");
-const hiScoreEl  = document.getElementById("hiScoreScreenEl");
 const upBtnEl    = document.getElementById("btnUpEl");
 const downBtnEl  = document.getElementById("btnDownEl");
 const leftBtnEl  = document.getElementById("btnLeftEl");
@@ -285,6 +283,19 @@ function typeName() {
     nameEl.style.display = "block"
     nameEl.focus();
     nameEl.select();
+    submitEl.style.display = "block";
+}
+
+function tryAgain(e) {
+    if (e.code = "Escape") {
+        document.getElementsByClassName("score-area").forEach(
+            (element) => {element.remove()}
+        );
+        hiScoreEl.style.display = "inline"
+        startBtnEl.style.display = "flex"
+        document.removeEventListener('keyup', tryAgain(e));
+        startReady = true;
+    }
 }
 
 function endGame() {
@@ -301,12 +312,12 @@ function endGame() {
     clearLvl();
 
     typeName();
-    /* setTimeout(function() {
-        scoreEls.forEach((element) => {element.remove()});
-        hiScoreEl.style.display = "inline"
-        startBtnEl.style.display = "flex"
-        startReady = true;
-    }, 3000); */
+
+
+    setTimeout(function() {
+        document.addEventListener('keyup', tryAgain)
+        retryEl.style.display = "block";
+    }, 3000);
 }
 
 /**Initializes Game

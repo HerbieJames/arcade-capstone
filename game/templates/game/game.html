@@ -39,7 +39,8 @@
                 <form id = "gameDisplayEl" method="post">
                     {{ score_form }}
                     {% csrf_token %}
-                    <button id="submitBtnEl" class = "score-area" type="submit">Submit</button>
+                    <button id="submitBtnEl" class = "score-area" type="submit">Insert Name</button>
+                    <button id="retryBtnEl" class = "score-area" onclick="tryAgain('Escape')">ESC - Try Again</button>
                 </form>
                 <!--Game Display End-->
             </div>
@@ -55,10 +56,32 @@
 <div id = "page-scores" name = "page-scores">
     <div class = "area game-machine">
         {% if user.is_authenticated %}
-            <!--Game Scores-->
-            {% block scores %}
-            {% endblock scores %}
-            <!--Game Scores End-->
+            <!--User Scores-->
+            <article class = "area game-scores">
+                <h1>Personal Bests</h1>
+                {% for score in my_scores %}
+                    <div class = "my-card">
+                        <p class="my-date">{{score.created_on|truncatechars:12}}</p>
+                        <p class="my-instance">
+                            <span class="my-value">{{score.value}}</span>
+                            <span class="my-alias">{{score.alias}}</span>
+                        </p>
+                    </div>
+                {% endfor %}
+            </article>
+            {% if is_paginated %}
+                <nav class = "area" aria-label="Page navigation">
+                    <ul class="score-pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> PREV &raquo;</a></li>
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+            <!--User Scores End-->
         {% endif %}
         <div class = "area game-footer">
         </div>
