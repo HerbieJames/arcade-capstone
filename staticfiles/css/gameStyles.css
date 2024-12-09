@@ -128,10 +128,22 @@
 }
 
 #submitBtnEl {
+    font-size: 16px;
+    z-index: 2;
+    display: none;
     margin: 0 auto;
     grid-column-start: 1;
     grid-column-end: 13;
-    grid-row-start: 12;
+    grid-row-start: 8;
+}
+
+#retryBtnEl {
+    z-index: 2;
+    display: none;
+    margin: 0 auto;
+    grid-column-start: 1;
+    grid-column-end: 13;
+    grid-row-start: 9;
 }
 
 .sprite {

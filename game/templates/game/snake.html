@@ -31,31 +31,3 @@
     <script> const ImgsPath = "{% static 'images_snake/' %}"; </script>
     <!--Snake Controls End-->
 {% endblock controls %}
-
-{% block scores %}
-    <!--Snake Scores-->
-    <article class = "area game-scores">
-        <h1>Personal Bests</h1>
-        {% for score in my_scores %}
-            <div class = "score-card">
-                <p class="score-instance">
-                    <span class="score-value">{{score.value}}</span>
-                    <span class="score-alias">{{score.alias}}</span>
-                </p>
-            </div>
-        {% endfor %}
-    </article>
-    {% if is_paginated %}
-        <nav class = "area" aria-label="Page navigation">
-            <ul class="score-pagination justify-content-center">
-                {% if page_obj.has_previous %}
-                    <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> PREV &raquo;</a></li>
-                {% endif %}
-                {% if page_obj.has_next %}
-                    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-    {% endif %}
-    <!--Snake Scores End-->
-{% endblock scores %}

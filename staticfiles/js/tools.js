@@ -1,5 +1,9 @@
 // DECLARTIONS 
 const grid    = document.getElementById("gameDisplayEl");
+const startBtnEl = document.getElementById("startBtnEl");
+const hiScoreEl  = document.getElementById("hiScoreScreenEl");
+const submitEl   = document.getElementById("submitBtnEl");
+const retryEl   = document.getElementById("retryBtnEl");
 const imgRoot = ImgsPath;
 let gridX      = 11;
 let gridY      = 11;
@@ -184,12 +188,12 @@ function addScore(x) {
 let startReady = true;
 
 function tryStartUp() {
-    // try {
+    try {
         startUp(); 
-    // } catch (error) { 
-    //    console.log(error);
-    //    document.getElementById("startBtnEl").innerHTML = "OUT OF ORDER";
-    // }
+    } catch (error) { 
+       console.log(error);
+       document.getElementById("startBtnEl").innerHTML = "OUT OF ORDER";
     }
+}
 
 setTimeout(document.addEventListener('keyup', tryStartUp), 1500);
