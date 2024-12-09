@@ -14,8 +14,11 @@ const playSpawnX = 6
 const playSpawnY = 12
 const maxSpeed   = 500;
 let speed        = maxSpeed;
-let gameOn       = false;
 let tick         = 0;
+let gameOn       = false;
+let roadRows     = [];
+let waterRows    = [];
+let grassRows    = [];
 let playerImg    = "frog1.PNG";
 let player;
 
@@ -27,11 +30,106 @@ function toggleSprites() {
     //
 }
 
-/**Initializes level by initializing tile sprites into each row
+/**Initializes appropriate road tile art on the rows specified for level generation with initLevel.
+ * @param {Array} y the rows where tiles will be generated
+ */
+function initRoadRows(y) {
+    y.forEach((element) => {
+        if (!y.includes(element-1) && !y.includes(element+1)) {
+            for (let i = gridXinit; i <= gridX; i++) {
+                initSprite(i, element, "road1.PNG", ["tile", "road"]);
+            }
+        } else if (!y.includes(element-1)) {
+            for (let i = gridXinit; i <= gridX; i++) {
+                initSprite(i, element, "road2.PNG", ["tile", "road"]);
+            }
+        } else if (!y.includes(element+1)) {
+            for (let i = gridXinit; i <= gridX; i++) {
+                initSprite(i, element, "road3.PNG", ["tile", "road"]);
+            }
+        } else {
+            for (let i = gridXinit; i <= gridX; i++) {
+                initSprite(i, element, "road4.PNG", ["tile", "road"]);
+            }
+        }
+    });
+}
+
+/**Initializes water tiles on the rows specified for level generation with initLevel.
+ * @param {Array} y the rows where tiles will be generated
+ */
+function initWaterRows(y) {
+    y.forEach((element) => {
+        for (let i = gridXinit; i <= gridX; i++) {
+            if ((i + (gridX-1)*element) % 2 == 0) {
+                initSprite(i, element, "water1.PNG", ["tile", "water", "hurts"]);
+            } else {
+                initSprite(i, element, "water2.PNG", ["tile", "water", "hurts"]);
+            }
+        }
+    });
+}
+
+/**Initializes grass tiles on the rows specified for level generation with initLevel.
+ * @param {Number} y the rows where tiles will be generated
+ */
+function initGrassRows(y) {
+    var bugCell  = 0;
+    y.forEach((element) => {
+        var obstCell = 0;
+        for (let i = gridXinit; i <= gridX; i++) {
+            var above = allAtXY(i, (element - 1));
+            var obstValid = (!y.includes(element - 1) && (obstCell < gridX/2)) || (!checkXY(above).moveable);
+            if (obstValid && (Math.random() <= 0.09375)) {
+                initSprite(i, element, "rock1.PNG", ["tile", "obst"]);
+                obstCell += 1;
+            } else if (obstValid && Math.random() <= 0.28125) {
+                initSprite(i, element, "tree1.PNG", ["tile", "obst"]);
+                obstCell += 1;
+            } else if ((bugCell != 1)&&(Math.random() <= 0.01)) {
+                fly = initSprite(i, element, "fly1.PNG", ["tile", "point"], "fly");
+                bugCell += 1;
+            } else {
+                initSprite(i, element, "grass1.PNG", ["tile", "grass"]);
+            }
+        }
+    });
+}
+
+// --LEVEL FUNCTIONS--
+/**Initializes level by randomly allocating certain
+ * types of tiles to certain rows, then initializing them.
  */
 function initLevel() {
-    //
-    gameOn = true;
+    roadRows  = []
+    waterRows = []
+    grassRows = []
+    for (let i = gridXinit; i <= gridX; i++) {
+        initSprite(i, gridYinit, "grass4.PNG", ["tile"]);
+    }
+    for (let y = (gridYinit + 1); y < gridY; y++) {
+        var roadRow  = 9 - roadRows.length;
+        var waterRow = 9 - (document.querySelectorAll('#gameDisplayEl .water').length)/gridX;
+        var grassRow = 9 - (document.querySelectorAll('#gameDisplayEl .water').length)/gridX;
+        var totalRow = roadRow + waterRow + grassRow;
+        if ((score >= 2000) && (totalRow * Math.random() <= roadRow)) {
+            roadRows.push(y);
+        } else if (((score >= 1000) && !((score >= 2000) && (score <= 3000))) &&
+        (totalRow * Math.random() <= roadRow + waterRow))  {
+            waterRows.push(y);
+        } else {
+            grassRows.push(y);
+        }
+    }
+    console.log("road:", roadRows);
+    console.log("water:", waterRows);
+    console.log("grass:", grassRows);
+    initRoadRows(roadRows);
+    initWaterRows(waterRows);
+    initGrassRows(grassRows);
+    for (let i = gridXinit; i <= gridX; i++) {
+        initSprite(i, gridY, "grass3.PNG", ["tile"]);
+    }
 }
 
 /**Deletes all tile elements, pagebreaks and cell spaces.
@@ -59,9 +157,11 @@ function clearLvl() {
  */
 function stageLvl() {
     clearLvl();
+    addScore(1000);
     setTimeout(function() {
         initLevel();
         gridHTML();
+        setPlayer(playSpawnX, playSpawnY);
         tick = 1;
     }, speed);
 }
@@ -85,26 +185,43 @@ function setPlayer(x, y) {
 /**Effect of user trigger to move player up
 */
 function moveUp(event) {
-    //
+    var ahead = allAtXY(player.style.gridColumn, (player.style.gridRow - 1));
+    setSpriteDeg(player, 0);
+    if (checkXY(ahead).moveable) {
+        moveSprite(player, 0, -1);
+    }
+    if (player.style.gridRow == gridYinit) { stageLvl(); }
 }
 
 /**Effect of user trigger to move player up
 */
 function moveDown(event) {
-    //
+    var ahead = allAtXY(player.style.gridColumn, (player.style.gridRow - -1));
+    setSpriteDeg(player, 180);
+    if (checkXY(ahead).moveable) {
+        moveSprite(player, 0, 1);
+    }
 }
 
 /**Effect of user trigger to move player light
 */
 function moveLeft(event) {
-    //
+    var ahead = allAtXY((player.style.gridColumn - 1), player.style.gridRow);
+    setSpriteDeg(player, -90);
+    if (checkXY(ahead).moveable) {
+        moveSprite(player, -1, 0);
+    }
 }
 
 
 /**Effect of user trigger to move player right.
 */
 function moveRight(event) {
-    //
+    var ahead = allAtXY((player.style.gridColumn - -1), player.style.gridRow);
+    setSpriteDeg(player, 90);
+    if (checkXY(ahead).moveable) {
+        moveSprite(player, 1, 0);
+    }
 }
 
 /**changes the player's movement direction as a keyboard event
@@ -189,7 +306,8 @@ function startUp() {
         scoreEl.classList.add(`score-area`);
         scoreEl.style.display = "block"
         initPlayer();
-        initLevel(playSpawnX, playSpawnY);
+        initLevel();
+        setPlayer(playSpawnX, playSpawnY)
         gridHTML();
         console.log("ImgRoot:");
         console.log(imgRoot);

@@ -5,6 +5,7 @@ const hiScoreEl  = document.getElementById("hiScoreScreenEl");
 const submitEl   = document.getElementById("submitBtnEl");
 const retryEl   = document.getElementById("retryBtnEl");
 const imgRoot = ImgsPath;
+let startReady = true;
 let gridX      = 11;
 let gridY      = 11;
 let gridXinit  = 2;
@@ -128,13 +129,16 @@ function getSpriteXY(element) {
  * @return {Object}            An object of boolean elements named "score" and "death".
 */
 function checkXY(ahead) {
+    var moveable = true;
     var death    = false;
     var score    = false;
     ahead.forEach((element) => {
         if (element.classList.contains("point")) { score    = true;  }
         if (element.classList.contains("hurts")) { death    = true;  }
+        if (element.classList.contains("obst"))  { moveable = false; }
     });
-    return {death: death, score: score};
+    console.log({moveable: moveable, death: death, score: score})
+    return {moveable: moveable, death: death, score: score};
 }
 
 /**Sets the co-ordiated of a given element on the grid and updates
@@ -152,6 +156,21 @@ function setSpriteXY(element, x, y) {
     element.style.gridColumn = x;
     element.style.gridRow = y;
     return {x: oldX, y: oldY}
+}
+
+/**Moves a given element on the grid a specified distance and updates their position in the DOM.
+ * @param {Element} element the target HTML element
+ * @param {Number}  x       row distance where positive is right
+ * @param {Number}  y       column distance where posititve is down
+ * @returns {Object}        the new ".x", ".y" values.
+*/
+function moveSprite(element, x, y) {
+    var neighbor = nearestTile(element.style.gridColumn - -x,element.style.gridRow - -y);
+    if (neighbor != undefined) { neighbor.before(element); }
+    element.style.gridColumn -= -x;
+    element.style.gridRow -= -y;
+    console.log("sprite moved")
+    return {x: element.style.gridColumn, y: element.style.gridRow}
 }
 
 /**Sets a given element's rotation to a specified angle in degrees.
@@ -184,8 +203,6 @@ function addScore(x) {
     document.getElementById("id_value").setAttribute("value", scoreTxt)
     console.log(x+ " Points! Score: "+ scoreTxt);
 }
-
-let startReady = true;
 
 function tryStartUp() {
     try {
