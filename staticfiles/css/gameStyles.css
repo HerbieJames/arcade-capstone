@@ -100,7 +100,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    padding-bottom: 32px;
+    padding-bottom: 16px;
 }
 
 .score-area {
@@ -128,7 +128,7 @@
 }
 
 #submitBtnEl {
-    font-size: 16px;
+    font-size: 24px;
     z-index: 2;
     display: none;
     margin: 0 auto;
@@ -138,12 +138,13 @@
 }
 
 #retryBtnEl {
+    font-size: 24px;
     z-index: 2;
     display: none;
     margin: 0 auto;
     grid-column-start: 1;
     grid-column-end: 13;
-    grid-row-start: 9;
+    grid-row-start: 10;
 }
 
 .sprite {
@@ -193,7 +194,7 @@
     width: 100%;
 }
 
-.game-scores > h1, #hiScoreScreenEl > h1 {
+#hiScoreScreenEl > h1 {
     margin: 32px 32px 0 32px;
     background-color: black;
     color: white;
@@ -201,19 +202,17 @@
 
 .score-card {
     display: flex;
+    flex-flow: column;
     align-items: center;
     margin: 0 32px;
     width: calc(100% - 64px);
     background-color: black;
 }
 
-.score-instance {
+.score-instance, .my-instance {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin: 4px 20px;
-    padding: 2px 4px;
-    color: white;
     font-size: xx-large;
 }
 
@@ -221,6 +220,17 @@
     display: flex;
     justify-content: space-around;
     list-style-type: none;
+}
+
+article > h1, .my-date, .my-value, .my-alias {
+    margin: 0 1em;
+    font-family: var(--font-page);
+    color: black;
+}
+
+.my-alias, .my-value {
+    font-size: x-large;
+    text-transform: uppercase;
 }
 
 li > a {
@@ -275,7 +285,7 @@ li > a {
         font-size:x-large;
     }
 
-    #hiScoreScreenEl > h1 {
+    #hiScoreScreenEl > h1, article > h1 {
         font-size: medium;
     }
 
@@ -294,7 +304,7 @@ li > a {
         font-size: large;
     }
 
-    .score-instance {
+    .score-instance, .my-instance {
         margin: 1px;
         font-size: medium;
     }
@@ -304,4 +314,11 @@ li > a {
         width: 24px;
     }
 }
+
+@media  screen and (min-height:720px){
+    .my-alias, .my-date {
+        font-size: xx-large;
+    }
+}
+
 

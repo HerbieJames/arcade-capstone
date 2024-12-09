@@ -27,7 +27,7 @@
                 <div id="hiScoreScreenEl">
                     <button id = "startBtnEl" onclick="tryStartUp()"> START </button>
                     <h1>-HIGH SCORES-</h1>
-                    {% for score in scores %}
+                    {% for score in scores|slice:":7" %}
                         <div class = "score-card">
                             <p class="score-instance">
                                 <span class="score-value">{{score.value}}</span>
@@ -59,7 +59,7 @@
             <!--User Scores-->
             <article class = "area game-scores">
                 <h1>Personal Bests</h1>
-                {% for score in my_scores %}
+                {% for score in my_scores|slice:":7" %}
                     <div class = "my-card">
                         <p class="my-date">{{score.created_on|truncatechars:12}}</p>
                         <p class="my-instance">
