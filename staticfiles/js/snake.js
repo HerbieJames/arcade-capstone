@@ -289,13 +289,13 @@ function typeName() {
 function tryAgain(e) {
     if (e.code = "Escape") {
         document.removeEventListener('keyup', tryAgain);
-        hiScoreEl.style.display  = "inline"
-        startBtnEl.style.display = "flex"
-        nameEl.style.display     = "none"
+        hiScoreEl.style.display  = "inline";
+        startBtnEl.style.display = "flex";
+        nameEl.style.display     = "none";
         submitEl.style.display   = "none";
         retryEl.style.display    = "none";
+        scoreEl.style.display    = "none";
         document.getElementById("gameOverEl").style.display = "none";
-        scoreEl.setAttribute("value", "000000");
         startReady = true;
     }
 }
