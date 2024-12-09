@@ -13,7 +13,9 @@ const rightBtnEl = document.getElementById("btnRightEl");
 const playSpawnX = 6
 const playSpawnY = 12
 const maxSpeed   = 500;
+const DeathImg   = "frog3.PNG";
 let speed        = maxSpeed;
+let lives        = 0;
 let tick         = 0;
 let gameOn       = false;
 let roadRows     = [];
@@ -21,6 +23,7 @@ let waterRows    = [];
 let grassRows    = [];
 let playerImg    = "frog1.PNG";
 let player;
+let fly;
 
 // FUNCTIONS
 
@@ -182,6 +185,37 @@ function setPlayer(x, y) {
     player.src = imgRoot + playerImg;
 }
 
+/**Removes the player and determines whether to continue or end the game.
+ */
+function endPlayer() {
+    if (active == true) {
+        var life;
+        active = false;
+        disableControl();
+        player.src = imgRoot + DeathImg;
+        allAtXY(gridX + 1 - lives, 1).forEach((element) => {
+            if (element.classList.contains("life")) { life = element; }
+        });
+        console.log("lives:", lives);
+        if (lives != 0) { 
+            life.remove();
+            lives -= 1
+            console.log("life lost:", life, lives, "left")
+            setTimeout(function() { setPlayer(playSpawnX, playSpawnY);}, 1000);
+        } else { setTimeout(endGame, 1000); }
+    }
+}
+
+function eatFly() {
+    console.log("lives:", lives);
+    addScore(250);
+    initSprite(fly.style.gridColumn, fly.style.gridRow, "grass2.PNG", ["tile"]);
+    fly.remove();
+    initSprite(gridX - lives, 1, playerImg, ["life"]);
+    lives += 1
+    console.log("lives:", lives);
+}
+
 /**Effect of user trigger to move player up
 */
 function moveUp(event) {
@@ -189,6 +223,8 @@ function moveUp(event) {
     setSpriteDeg(player, 0);
     if (checkXY(ahead).moveable) {
         moveSprite(player, 0, -1);
+        if (checkXY(ahead).death) {   endPlayer(); }
+        else if (checkXY(ahead).score) { eatFly(); }
     }
     if (player.style.gridRow == gridYinit) { stageLvl(); }
 }
@@ -200,6 +236,8 @@ function moveDown(event) {
     setSpriteDeg(player, 180);
     if (checkXY(ahead).moveable) {
         moveSprite(player, 0, 1);
+        if (checkXY(ahead).death) {   endPlayer(); }
+        else if (checkXY(ahead).score) { eatFly(); }
     }
 }
 
@@ -210,6 +248,8 @@ function moveLeft(event) {
     setSpriteDeg(player, -90);
     if (checkXY(ahead).moveable) {
         moveSprite(player, -1, 0);
+        if (checkXY(ahead).death) {   endPlayer(); }
+        else if (checkXY(ahead).score) { eatFly(); }
     }
 }
 
@@ -221,6 +261,8 @@ function moveRight(event) {
     setSpriteDeg(player, 90);
     if (checkXY(ahead).moveable) {
         moveSprite(player, 1, 0);
+        if (checkXY(ahead).death) {   endPlayer(); }
+        else if (checkXY(ahead).score) { eatFly(); }
     }
 }
 
@@ -264,13 +306,16 @@ function typeName() {
 }
 
 function tryAgain(e) {
+    console.log(e.code)
     if (e.code = "Escape") {
-        document.getElementsByClassName("score-area").forEach(
-            (element) => {element.remove()}
-        );
-        hiScoreEl.style.display = "inline"
+        document.removeEventListener('keyup', tryAgain);
+        hiScoreEl.style.display  = "inline"
         startBtnEl.style.display = "flex"
-        document.removeEventListener('keyup', tryAgain(e));
+        nameEl.style.display     = "none"
+        submitEl.style.display   = "none";
+        retryEl.style.display    = "none";
+        document.getElementById("gameOverEl").style.display = "none";
+        scoreEl.setAttribute("value", "000000");
         startReady = true;
     }
 }
@@ -279,12 +324,14 @@ function endGame() {
     var txt = document.createElement('p');
     txt.classList.add(`score-area`);
     txt.innerHTML = "GAME OVER";
+    txt.id = "gameOverEl";
     grid.appendChild(txt);
     txt.style.gridColumnStart = gridXinit;
     txt.style.gridColumnEnd   = gridX + 1;
     txt.style.gridRowStart    = gridYinit;
     txt.style.gridRowEnd      = gridY;
     txt.style.justifyContent  = "center"
+    player.remove();
     clearLvl();
     typeName();
     setTimeout(function() {

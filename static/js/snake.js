@@ -288,12 +288,14 @@ function typeName() {
 
 function tryAgain(e) {
     if (e.code = "Escape") {
-        document.getElementsByClassName("score-area").forEach(
-            (element) => {element.remove()}
-        );
-        hiScoreEl.style.display = "inline"
+        document.removeEventListener('keyup', tryAgain);
+        hiScoreEl.style.display  = "inline"
         startBtnEl.style.display = "flex"
-        document.removeEventListener('keyup', tryAgain(e));
+        nameEl.style.display     = "none"
+        submitEl.style.display   = "none";
+        retryEl.style.display    = "none";
+        document.getElementById("gameOverEl").style.display = "none";
+        scoreEl.setAttribute("value", "000000");
         startReady = true;
     }
 }
@@ -302,6 +304,7 @@ function endGame() {
     var txt = document.createElement('p');
     txt.classList.add(`score-area`);
     txt.innerHTML = "GAME OVER";
+    txt.id = "gameOverEl"
     grid.appendChild(txt);
     txt.style.gridColumnStart = gridXinit;
     txt.style.gridColumnEnd   = gridX + 1;
@@ -323,6 +326,7 @@ function endGame() {
 /**Initializes Game
  */
 function startUp() {
+    console.log("startReady =", startReady)
     if (startReady == true) {
         startReady = false;
         tick = 1;

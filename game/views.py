@@ -5,6 +5,18 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import Score
 from .forms import ScoreForm
 
+def clearScore(gameIndex): # summoned on any form submission - to remove redundant data
+    if request.user.is_authenticated: ## target to remove user's worst (undisplayed) scores
+        bottom_scores = Score.objects.order_by("value").filter(player=request.user).filter(game=gameIndex)
+    else:                             ## target to remove worst (undisplayed) guest scores
+        bottom_scores = Score.objects.order_by("value").filter(player__isnull=True).filter(game=gameIndex)
+    
+    all_but_top_seven = Score.objects.order_by("value").filter(score__in=bottom_scores[:(bottom_scores.count()-7)])
+    Score.objects.exclude(all_but_top_seven)
+    
+    ## does not work
+       
+
 
 # Create your views here.
 
@@ -40,6 +52,7 @@ def SnakeMachine(request):
                 score.player = request.user
             score.save()
             return HttpResponseRedirect("./")
+        clearScore(1)
     
     score_form = ScoreForm()
     
@@ -56,16 +69,21 @@ def SnakeMachine(request):
 
 def FroggerMachine(request):
     queryset = Score.objects.filter(game=0).order_by("-value")
-    my_scores = Score.objects.filter(game=0).order_by("-value") ##
+    if request.user.is_authenticated:
+        my_scores = Score.objects.filter(player=request.user).filter(game=0).order_by("-value")
+    else:
+        my_scores = Score.objects.filter(game=-1)
 
     if request.method == "POST":
         score_form = ScoreForm(data=request.POST)
         if score_form.is_valid():
             score = score_form.save(commit=False)
             score.game = 0
-            ## score.player = request.user
+            if request.user.is_authenticated:
+                score.player = request.user
             score.save()
             return HttpResponseRedirect("./")
+        clearScore(0)
     
     score_form = ScoreForm()
     

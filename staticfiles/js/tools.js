@@ -3,7 +3,7 @@ const grid    = document.getElementById("gameDisplayEl");
 const startBtnEl = document.getElementById("startBtnEl");
 const hiScoreEl  = document.getElementById("hiScoreScreenEl");
 const submitEl   = document.getElementById("submitBtnEl");
-const retryEl   = document.getElementById("retryBtnEl");
+const retryEl   = document.getElementById("retryTxt");
 const imgRoot = ImgsPath;
 let startReady = true;
 let gridX      = 11;
@@ -132,13 +132,19 @@ function checkXY(ahead) {
     var moveable = true;
     var death    = false;
     var score    = false;
-    ahead.forEach((element) => {
-        if (element.classList.contains("point")) { score    = true;  }
-        if (element.classList.contains("hurts")) { death    = true;  }
-        if (element.classList.contains("obst"))  { moveable = false; }
-    });
-    console.log({moveable: moveable, death: death, score: score})
-    return {moveable: moveable, death: death, score: score};
+    var plySprt
+    if (ahead.length == 0) {
+        moveable = false;
+        console.log("BOUNDARY", ahead);
+    } else {
+        ahead.forEach((element) => {
+            if (element.classList.contains("obst"))  { moveable = false; }
+            if (element.classList.contains("point")) { score    = true;  }
+            if (element.classList.contains("hurts")) { death    = true;  }
+            if (element.id == "player")              { plySprt  = true;  }
+        });
+    }
+    return {moveable: moveable, death: death, score: score, player: plySprt};
 }
 
 /**Sets the co-ordiated of a given element on the grid and updates

@@ -20,12 +20,12 @@
     <!--Frogger Controls-->
     <link rel="prefetch" href="{% static 'js/frogger.js' %}"/>
     <div id = "gameControllerEl">
-        <button class= "button" id="btnLeftEl">←, A</button>
+        <button class= "button" id="btnLeftEl" onclick="tryStartUp()">←, A</button>
         <div style="display:flex; flex-flow:column; flex: 1 1 0;">
-            <button class= "button" id="btnUpEl">↑, W, Space</button>
-            <button class= "button" id="btnDownEl">↓, S</button>
+            <button class= "button" id="btnUpEl" onclick="tryStartUp()">↑, W</button>
+            <button class= "button" id="btnDownEl" onclick="tryStartUp()">↓, S</button>
         </div>
-        <button class= "button" id="btnRightEl">→, D</button>
+        <button class= "button" id="btnRightEl" onclick="tryStartUp()">→, D</button>
     </div>
     <script src="{% static 'js/frogger.js' %}" defer></script>
     <script> const ImgsPath = "{% static 'images_frogger/' %}"; </script>
