@@ -30,7 +30,26 @@ let fly;
 /** Toggles the artwork of sprites relative to the value of tick.
  */
 function toggleSprites() {
-    //
+    var water1PNG = imgRoot + "water1.PNG"
+    var water2PNG = imgRoot + "water2.PNG"
+    var water1tiles = grid.querySelectorAll(`img[src='${water1PNG}']`)
+    var water2tiles = grid.querySelectorAll(`img[src='${water2PNG}']`)
+    var fly1PNG = imgRoot + "fly1.PNG"
+    var fly2PNG = imgRoot + "fly2.PNG"
+    var fly1tiles = grid.querySelectorAll(`img[src='${fly1PNG}']`)
+    var fly2tiles = grid.querySelectorAll(`img[src='${fly2PNG}']`)
+    water1tiles.forEach((element) => {
+        element.src = water2PNG;
+    });
+    water2tiles.forEach((element) => {
+        element.src = water1PNG;
+    });
+    fly1tiles.forEach((element) => {
+        element.src = fly2PNG;
+    });
+    fly2tiles.forEach((element) => {
+        element.src = fly1PNG;
+    });
 }
 
 /**Initializes appropriate road tile art on the rows specified for level generation with initLevel.
@@ -349,7 +368,6 @@ function startUp() {
         score = 0;
         hiScoreEl.style.display = "none";
         scoreEl = document.getElementById('id_value');
-        console.log(scoreEl);
         scoreEl.classList.add(`score-area`);
         scoreEl.style.display = "block"
         initPlayer();
@@ -368,7 +386,7 @@ function delta(){
         startBtnEl.innerHTML = startBtnEl.innerHTML == "" ? "START" : "";
     } else if (gameOn == false) {
     } else {
-        //
+        toggleSprites();
     }
     tick += tick == 4 ? (-3) : 1;
     setTimeout(delta, speed);
