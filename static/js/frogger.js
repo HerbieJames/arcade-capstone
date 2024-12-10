@@ -12,16 +12,18 @@ const leftBtnEl  = document.getElementById("btnLeftEl");
 const rightBtnEl = document.getElementById("btnRightEl");
 const playSpawnX = 6
 const playSpawnY = 12
-const maxSpeed   = 500;
+const playerImg    = "frog1.PNG";
 const DeathImg   = "frog3.PNG";
-let speed        = maxSpeed;
-let lives        = 0;
-let tick         = 0;
+const maxSpeed   = 500;
 let gameOn       = false;
+let speed        = maxSpeed;
+let tick         = 0;
+let lives        = 0;
+let logRows      = {};
+let carRows      = {};
 let roadRows     = [];
 let waterRows    = [];
 let grassRows    = [];
-let playerImg    = "frog1.PNG";
 let player;
 let fly;
 
@@ -56,7 +58,20 @@ function toggleSprites() {
  * @param {Array} y the rows where tiles will be generated
  */
 function initRoadRows(y) {
+    var lastIsThree = false;
     y.forEach((element) => {
+        if (lastIsThree && !y.includes(element - 1)) { lastIsThree = false; }
+        var carIndex = element.toString();
+        Object.defineProperty(carRows, carIndex, { 
+            value : {
+                "len" : lastIsThree ? Math.ceil(Math.random()*2)
+                                    : Math.ceil(Math.random()*3),
+                "gap" :   Math.floor(Math.random()*3),
+                "dir" : 2*Math.floor(Math.random()*2) - 1
+            }
+        });
+        if (carRows[element].len == 3) { lastIsThree = true; }
+        else { lastIsThree = false; }
         if (!y.includes(element-1) && !y.includes(element+1)) {
             for (let i = gridXinit; i <= gridX; i++) {
                 initSprite(i, element, "road1.PNG", ["tile", "road"]);
@@ -75,13 +90,26 @@ function initRoadRows(y) {
             }
         }
     });
+    console.log("carRows:", carRows);
 }
 
 /**Initializes water tiles on the rows specified for level generation with initLevel.
  * @param {Array} y the rows where tiles will be generated
  */
 function initWaterRows(y) {
+    var LastIsOne = false;
     y.forEach((element) => {
+        if (LastIsOne && !y.includes(element - 1)) { LastIsOne = false; }
+        var logIndex = element.toString();
+        Object.defineProperty(logRows, logIndex, { 
+            value : {
+                "len" : LastIsOne ? Math.ceil(Math.random()*2) + 1
+                                  : Math.ceil(Math.random()*3),
+                "gap" : Math.floor(Math.random()*3)
+            }
+        });
+        if (logRows[element].len == 1) { LastIsOne = true; }
+        else { LastIsOne = false; }
         for (let i = gridXinit; i <= gridX; i++) {
             if ((i + (gridX-1)*element) % 2 == 0) {
                 initSprite(i, element, "water1.PNG", ["tile", "water", "hurts"]);
@@ -90,6 +118,7 @@ function initWaterRows(y) {
             }
         }
     });
+    console.log("logRows:", logRows);
 }
 
 /**Initializes grass tiles on the rows specified for level generation with initLevel.
@@ -126,6 +155,8 @@ function initLevel() {
     roadRows  = []
     waterRows = []
     grassRows = []
+    logRows   = {}
+    carRows   = {}
     for (let i = gridXinit; i <= gridX; i++) {
         initSprite(i, gridYinit, "grass4.PNG", ["tile"]);
     }
@@ -154,10 +185,99 @@ function initLevel() {
     }
 }
 
+/**Checks whether and which log starts to build at end of row y.
+ * Is called by the function moveLogRows.
+ * @param {Number} y the row to check for building a new log in.
+ */
+function buildLogStart(y) {
+    var logAtTop   = false;
+    allAtXY(gridX, y).forEach((element) => {
+        if (element.classList.contains("log")){ logAtTop = true;}
+    });
+    if (logAtTop == true) {}
+    else if (logRows[y].gap > 0) { logRows[y].gap -= 1; }
+    else if (logRows[y].len != 1) {
+        initSprite(gridX, y, "log1.PNG", ["entity", "log", "log1"]);
+        logRows[y].gap = Math.floor(4*Math.random()) + 1;
+    } else {
+        initSprite(gridX, y, "log4.PNG", ["entity", "log", "log4"]);
+        logRows[y].gap = Math.floor(4*Math.random()) + 1;
+    }
+}
+
+/**Takes the sprite for an unfinished log and develops it further.
+ * Is called by the moveLog function.
+ * @param {Element} log the end-most sprite of an unfinished log.
+ */
+function buildLogEnd(log) {
+    elX = getSpriteXY(log).x;
+    elY = getSpriteXY(log).y;
+    if ((log.classList.contains("log1")) && (logRows[elY].len > 2)) {
+        initSprite(gridX, elY, "log2.PNG", ["entity", "log", "log2"]);
+    } else if (log.classList.contains("log1")) {
+        initSprite(gridX, elY, "log3.PNG", ["entity", "log", "log3"]);
+    } else if (log.classList.contains("log2")) {
+        initSprite(gridX, elY, "log3.PNG", ["entity", "log", "log3"]);
+        logRows[elY].gap = Math.floor(4*Math.random()) + 1;
+    }
+}
+
+/**Takes a given element with class "log" and moves it, removes it, or develops it.
+ * It calls the buildLogEnd function to do the latter.
+ * @param {Element} log the element to move.
+ */
+function moveLog(log) {
+    var playerOn = false;
+    var elX = getSpriteXY(log).x;
+    var elY = getSpriteXY(log).y;
+    if ((getSpriteXY(player).x == elX) && (getSpriteXY(player).y == elY)){
+        var playerOn = true;
+    }
+    if (getSpriteXY(log).x == 1) {
+        log.remove()
+        if (playerOn){ endPlayer(); }
+    } else {
+        moveSprite(log, -1, 0);
+        if (playerOn) { moveSprite(player, -1, 0) }
+        elX = getSpriteXY(log).x;
+    }
+    if (elX != (gridX-1))   {}
+    else { buildLogEnd(log); }
+}
+
+/**Takes a given row and calls moveLog on each to move the entire row, 
+ * @param {Number} y row to move all logs within.
+*/
+function moveLogRow(y) {
+    var logSprites = document.getElementsByClassName("log");
+    var logsInRow  = [];
+    for (var i = 0; i < logSprites.length; i++) {
+        if (getSpriteXY(logSprites[i]).y == y){ logsInRow.push(logSprites[i]); }
+    }
+    logsInRow.forEach((element) => { moveLog(element); });
+    buildLogStart(y)
+}
+
+/**Checks based on values in logRows for logs on which water rows to move.
+ * This function is called every tick and this function calls moveLogRow.
+ */
+function updateLogs() {
+    waterRows.forEach((y) => {
+        var moveRow    = false;
+        if (logRows[y].len == 1)                           { moveRow = true; }
+        else if ((logRows[y].len == 2) && (tick % 2 == 1)) { moveRow = true; }
+        else if (tick == 1)                                { moveRow = true; }
+        if (moveRow == true) { moveLogRow(y); }
+    });
+}
+
 /**Deletes all tile elements, pagebreaks and cell spaces.
  */
 function clearLvl() {
     document.querySelectorAll(".tile").forEach((element) => {
+        element.remove();
+    });
+    document.querySelectorAll(".entity").forEach((element) => {
         element.remove();
     });
     document.querySelectorAll(".point").forEach((element) => {
@@ -385,6 +505,7 @@ function delta(){
         startBtnEl.innerHTML = startBtnEl.innerHTML == "" ? "START" : "";
     } else if (gameOn == false) {
     } else {
+        updateLogs();
         toggleSprites();
     }
     tick += tick == 4 ? (-3) : 1;
