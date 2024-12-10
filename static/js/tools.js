@@ -178,7 +178,6 @@ function moveSprite(element, x, y) {
     if (neighbor != undefined) { neighbor.before(element); }
     element.style.gridColumn -= -x;
     element.style.gridRow -= -y;
-    console.log("sprite moved")
     return {x: element.style.gridColumn, y: element.style.gridRow}
 }
 

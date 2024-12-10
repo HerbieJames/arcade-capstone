@@ -271,6 +271,94 @@ function updateLogs() {
     });
 }
 
+/**Checks whether and which car starts to build at end of row y.
+ * Is called by the function moveCarRows.
+ * @param {Number} y the row to check for building a new car in.
+ */
+function buildCarStart(y) {
+    var carStart = carRows[y].dir == -1 ? gridX : 1
+    var carAtTop   = false;
+    var car;
+    allAtXY(carStart, y).forEach((element) => {
+        if (element.classList.contains("car")){ carAtTop = true;}
+    });
+    if (carAtTop == true) {}
+    else if (carRows[y].gap > 0) { carRows[y].gap -= 1; }
+    else if (carRows[y].len != 1) {
+        car = initSprite(carStart, y, "lorryPink1.PNG", ["entity", "car", "car1", "hurts"]);
+        carRows[y].gap = Math.floor(4*Math.random()) + 2;
+    } else {
+        car = initSprite(carStart, y, "bike1.PNG", ["entity", "car", "car4", "hurts"]);
+        carRows[y].gap = Math.floor(4*Math.random()) + 2;
+    }
+    if ((car != undefined)&&(0.5*(carRows[y].dir + 1))) { setSpriteDeg(car, 180); }
+}
+
+/**Takes the sprite for an unfinished car and develops it further.
+ * Is called by the moveCar function.
+ * @param {Element} car the end-most sprite of an unfinished car.
+ */
+function buildCarEnd(car) {
+    var elY = getSpriteXY(car).y;
+    var carStart = carRows[elY].dir == -1 ? gridX : 1
+    var car;
+    if ((car.classList.contains("car1")) && (carRows[elY].len > 2)) {
+        car = initSprite(carStart, elY, "lorryPink2.PNG", ["entity", "car", "car2", "hurts"]);
+    } else if (car.classList.contains("car1")) {
+        car = initSprite(carStart, elY, "lorryPink3.PNG", ["entity", "car", "car3", "hurts"]);
+    } else if (car.classList.contains("car2")) {
+        car = initSprite(carStart, elY, "lorryPink3.PNG", ["entity", "car", "car3", "hurts"]);
+        carRows[elY].gap = Math.floor(4*Math.random()) + 2;
+    }
+    if ((car != undefined)&&(0.5*(carRows[elY].dir + 1))) { setSpriteDeg(car, 180); }
+}
+
+/**Takes a given element with class "car" and moves it, removes it, or develops it.
+ * It calls the buildCarEnd function to do the latter.
+ * @param {Element} car the element to move.
+ */
+function moveCar(car) {
+    var elY = getSpriteXY(car).y;
+    var carStart = carRows[elY].dir == -1 ? gridX : 1
+    if (getSpriteXY(car).x == gridX + 1 - carStart) {
+        car.remove()
+    } else {
+        moveSprite(car, carRows[elY].dir, 0);
+        var elX = getSpriteXY(car).x;
+        var plX = getSpriteXY(player).x;
+        var plY = getSpriteXY(player).y;
+        if ((elX == plX) && (elY == plY)) { endPlayer(); }
+    }
+    if (elX != (carStart + carRows[elY].dir)) {}
+    else { buildCarEnd(car); }
+}
+
+/**Takes a given row and calls moveLog on each to move the entire row, 
+ * @param {Number} y row to move all cars within.
+*/
+function moveCarRow(y) {
+    var carSprites = document.getElementsByClassName("car");
+    var carsInRow  = [];
+    for (var i = 0; i < carSprites.length; i++) {
+        if (getSpriteXY(carSprites[i]).y == y){ carsInRow.push(carSprites[i]); }
+    }
+    carsInRow.forEach((element) => { moveCar(element); });
+    buildCarStart(y)
+}
+
+/**Checks based on values in carRows for cars on which water rows to move.
+ * This function is called every tick and this function calls moveCarRow.
+ */
+function updateCars() {
+    roadRows.forEach((y) => {
+        var moveRow    = false;
+        if (carRows[y].len == 1)                           { moveRow = true; }
+        else if ((carRows[y].len == 2) && (tick % 2 == 0)) { moveRow = true; }
+        else if (tick == 3)                                { moveRow = true; }
+        if (moveRow == true) { moveCarRow(y); }
+    });
+}
+
 /**Deletes all tile elements, pagebreaks and cell spaces.
  */
 function clearLvl() {
@@ -506,6 +594,7 @@ function delta(){
     } else if (gameOn == false) {
     } else {
         updateLogs();
+        updateCars();
         toggleSprites();
     }
     tick += tick == 4 ? (-3) : 1;
