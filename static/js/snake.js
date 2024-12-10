@@ -287,7 +287,7 @@ function typeName() {
 }
 
 function tryAgain(e) {
-    if (e.code = "Escape") {
+    if (e.code == "Escape") {
         document.removeEventListener('keyup', tryAgain);
         hiScoreEl.style.display  = "inline";
         startBtnEl.style.display = "flex";

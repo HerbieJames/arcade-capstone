@@ -287,7 +287,7 @@ function typeName() {
 }
 
 function tryAgain(e) {
-    if (e.code = "Escape") {
+    if (e.code == "Escape") {
         document.removeEventListener('keyup', tryAgain);
         hiScoreEl.style.display  = "inline";
         startBtnEl.style.display = "flex";
@@ -311,12 +311,8 @@ function endGame() {
     txt.style.gridRowStart    = gridYinit;
     txt.style.gridRowEnd      = gridY;
     txt.style.justifyContent  = "center"
-
     clearLvl();
-
     typeName();
-
-
     setTimeout(function() {
         document.addEventListener('keyup', tryAgain)
         retryEl.style.display = "block";
