@@ -336,6 +336,7 @@ function tryAgain(e) {
         scoreEl.style.display    = "none";
         document.getElementById("gameOverEl").style.display = "none";
         startReady = true;
+        startUp();
     }
 }
 
@@ -353,10 +354,8 @@ function endGame() {
     player.remove();
     clearLvl();
     typeName();
-    setTimeout(function() {
-        document.addEventListener('keyup', tryAgain)
-        retryEl.style.display = "block";
-    }, 3000);
+    document.addEventListener('keyup', tryAgain)
+    retryEl.style.display = "block";
 }
 
 /**Initializes Game
