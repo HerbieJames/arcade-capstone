@@ -311,12 +311,8 @@ function endGame() {
     txt.style.gridRowStart    = gridYinit;
     txt.style.gridRowEnd      = gridY;
     txt.style.justifyContent  = "center"
-
     clearLvl();
-
     typeName();
-
-
     setTimeout(function() {
         document.addEventListener('keyup', tryAgain)
         retryEl.style.display = "block";
