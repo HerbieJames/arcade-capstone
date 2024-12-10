@@ -143,6 +143,9 @@ function checkXY(ahead) {
             if (element.classList.contains("hurts")) { death    = true;  }
             if (element.id == "player")              { plySprt  = true;  }
         });
+        ahead.forEach((element) => { // for FROGGER only.
+            if (element.classList.contains("log"))   { death    = false;  }
+        });
     }
     return {moveable: moveable, death: death, score: score, player: plySprt};
 }

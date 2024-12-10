@@ -152,11 +152,7 @@
     width: 32px;
 }
 
-.tile {
-    z-index: 0;
-}
-
-.point, .obst {
+.point, .obst, .entity {
     z-index: 1;
 }
 
