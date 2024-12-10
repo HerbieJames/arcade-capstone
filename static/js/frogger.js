@@ -198,7 +198,7 @@ function initPlayer() {
 /**Sets the player's coordinates to the centre of the bottom row
  */
 function setPlayer(x, y) {
-    active = true;
+    gameOn = true;
     setSpriteXY(player, x, y);
     setTimeout(enableControl, 250);
     player.src = imgRoot + playerImg;
@@ -207,9 +207,9 @@ function setPlayer(x, y) {
 /**Removes the player and determines whether to continue or end the game.
  */
 function endPlayer() {
-    if (active == true) {
+    if (gameOn == true) {
         var life;
-        active = false;
+        gameOn = false;
         disableControl();
         player.src = imgRoot + DeathImg;
         allAtXY(gridX + 1 - lives, 1).forEach((element) => {
