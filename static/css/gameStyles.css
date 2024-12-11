@@ -184,6 +184,10 @@
     box-shadow: 0px 2px 4px black;
 }
 
+.button1:active, .pressed {
+    background-color: red;
+  }
+
 .game-scores {
     display: flex;
     flex-flow: column;

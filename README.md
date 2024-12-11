@@ -58,7 +58,7 @@
 
 **"Unclosed element `span`." and "Stray end tag `span`." (*signup.html -> lines 25, and 26*):** As with the previous errors, I have interpretted these errors in Django's generated html as non-issues.
 
-### CSS Validation (Git Hash: "418a36df84b7f88c411c73d39c6c3650b426d75a" and "")
+### CSS Validation (Git Hash: "418a36df84b7f88c411c73d39c6c3650b426d75a" and "b9e052dc7958b17a7cf85d156c9db0ab0b339fd8")
 **"Value Error : padding-top `-12px` negative values are not allowed" (*indexStyles.css -> line 17*):** This was adjusted to `padding-bottom: 12px;`
 
 **"Due to their dynamic nature, CSS variables are currently not statically checked":** Here, I ammended my declared variables in `:root { ... }` of styles.css to accountStyles.css, gameStyles.css, and indexStyles.css.
