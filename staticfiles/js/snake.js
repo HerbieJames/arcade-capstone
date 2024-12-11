@@ -108,7 +108,6 @@ function makeWalls() {
 /**Initializes level by initializing tile sprites into each row
  */
 function initLevel() {
-    makeApple();
     if (score > 0) { makeWalls(); }
     if (score > 5000) { makeWalls(); }
     for (let y = (gridYinit); y <= gridY; y++) {
@@ -116,6 +115,7 @@ function initLevel() {
             initSprite(i, y, "ground.png", ["tile"]);
         }
     }
+    makeApple();
     gameOn = true;
 }
 

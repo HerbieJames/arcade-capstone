@@ -20,10 +20,12 @@ body {
     background-size: cover;
 }
 
-footer, .shell-header {
+footer, .shell-header, .home-header {
     display: flex;
     flex-flow: row;
     justify-content: center;
+    align-items: center;
+    text-align: center;
     width: 100%;
     height: 48px;
     color: white;
@@ -36,7 +38,6 @@ footer {
 
 .shell-header {
     justify-content: space-between;
-    border-bottom: 1px solid white;
 }
 
 .header-span {
@@ -68,6 +69,7 @@ footer {
 .header-button {
     box-shadow: inset 0px 0px 16px 12px black;
     width: 25vw;
+    height: 100%;
     background-color: aqua;
 }
 
@@ -143,7 +145,8 @@ br {
 
 .img-div {
     display: flex;
-    justify-content: center;
+    flex-flow: column;
+    align-items: center;
     width: 100%;
     height: 5em;
     margin: 0.1em;

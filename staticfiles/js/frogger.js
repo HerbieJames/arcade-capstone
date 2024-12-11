@@ -6,7 +6,9 @@ gridXinit  = 1;
 gridYinit  = 2;
 
 //--SNAKE DECLARATIONS--
-const themeEl    = document.getElementById("themeAudio")
+const endEl      = document.getElementById("endAudio");
+const muteEl     = document.getElementById("muteBtn");
+const themeEl    = document.getElementById("themeAudio");
 const upBtnEl    = document.getElementById("btnUpEl");
 const downBtnEl  = document.getElementById("btnDownEl");
 const leftBtnEl  = document.getElementById("btnLeftEl");
@@ -541,16 +543,16 @@ function disableControl() {
 }
 
 function toggleAudio() {
-    if (themeEl.muted == false) { 
+    if (endEl.muted == false) { 
         themeEl.muted = true
-        themeEl.innerHTML = "🔇"
+        endEl.muted = true
+        muteEl.innerHTML = "🔇 Muted"
         console.log("MUTING 🔇")
     }
     else {
         themeEl.muted = false
-        themeEl.load()
-        themeEl.play()
-        themeEl.innerHTML = "🔊"
+        endEl.muted = false
+        muteEl.innerHTML = "🔊 Playing"
         console.log("UNMUTING 🔊")
     }
 }
@@ -593,6 +595,9 @@ function endGame() {
     txt.style.justifyContent  = "center"
     player.remove();
     clearLvl();
+    themeEl.pause();
+    themeEl.currentTime = 0;
+    endEl.play();
     typeName();
     document.addEventListener('keyup', tryAgain)
     retryEl.style.display = "block";
@@ -615,6 +620,8 @@ function startUp() {
         gridHTML();
         console.log("ImgRoot:");
         console.log(imgRoot);
+        themeEl.currentTime = 0;
+        themeEl.play();
     }
 }
 

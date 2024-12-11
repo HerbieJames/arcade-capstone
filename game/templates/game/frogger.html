@@ -30,6 +30,9 @@
         </div>
         <button class= "button" id="btnRightEl" onclick="tryStartUp()">→, D</button>
     </div>
+    <audio id="endAudio" muted>
+        <source src="{% static 'audio/frogger_end.mp3' %}" type="audio/mp3">
+    </audio>
     <script src="{% static 'js/frogger.js' %}" defer></script>
     <script> const ImgsPath = "{% static 'images_frogger/' %}"; </script>
     <!--Frogger Controls End-->

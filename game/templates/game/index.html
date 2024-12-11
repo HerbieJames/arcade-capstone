@@ -11,8 +11,11 @@
 {% endblock head_el %}
 
 {% block content %}
+<div class = "home-header page-break">
+    <p>Welcome to Capstone Arcade! Play classic games and compete with others visitors freely.</p>
+</div>
 <!--Menu Page-->
-<main class = "menu page-break">
+<main class = "menu">
     <div class = "menu-row">
         <div class = "card">
             {% if user.is_authenticated %}
