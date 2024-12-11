@@ -178,14 +178,21 @@
 }
 
 .button {
+    color: black;
     flex: 2 1 0;
     padding: 1%;
     margin: 2px;
     box-shadow: 0px 2px 4px black;
+    transition-duration: 0.05s;
 }
 
-.button1:active, .pressed {
-    background-color: red;
+.button:active, .button:hover, .pressed {
+    background-color: hsl(335, 0%, 90%);
+}
+
+.button:active, .pressed {
+    box-shadow: 0px 0px 4px black;
+    transform: translateY(2px);
   }
 
 .game-scores {

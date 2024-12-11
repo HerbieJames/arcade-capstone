@@ -141,6 +141,20 @@ br {
     text-transform: uppercase;
 }
 
+.img-div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 5em;
+    margin: 0.1em;
+}
+
+.img-div > img {
+    position: relative;
+    bottom: 10%;
+    height: 100%;
+}
+
 @media  screen and (max-width:547px){
     .title { font-size: 36px; }
 }
