@@ -6,6 +6,7 @@ gridXinit  = 1;
 gridYinit  = 2;
 
 //--SNAKE DECLARATIONS--
+const themeEl    = document.getElementById("themeAudio")
 const upBtnEl    = document.getElementById("btnUpEl");
 const downBtnEl  = document.getElementById("btnDownEl");
 const leftBtnEl  = document.getElementById("btnLeftEl");
@@ -497,10 +498,26 @@ function moveRight(event) {
  * @param {Event} e keyboard event
  */
 function buttonMove(e) {
-    if      ((e.code === "ArrowUp")    || (e.code === "KeyW")) { moveUp(e);    }
-    else if ((e.code === "ArrowDown")  || (e.code === "KeyS")) { moveDown(e);  }
-    else if ((e.code === "ArrowLeft")  || (e.code === "KeyA")) { moveLeft(e);  }
-    else if ((e.code === "ArrowRight") || (e.code === "KeyD")) { moveRight(e); }
+    if((e.code === "ArrowUp") || (e.code === "KeyW") || (e.code === "Space")) { 
+        moveUp(e);
+        upBtnEl.classList.add("pressed");
+        setTimeout(function(){ upBtnEl.classList.remove("pressed"); }, 50);
+    }
+    else if ((e.code === "ArrowDown") || (e.code === "KeyS")) { 
+        moveDown(e);  
+        downBtnEl.classList.add("pressed");
+        setTimeout(function(){ downBtnEl.classList.remove("pressed"); }, 50);
+    }
+    else if ((e.code === "ArrowLeft") || (e.code === "KeyA")) { 
+        moveLeft(e);  
+        leftBtnEl.classList.add("pressed");
+        setTimeout(function(){ leftBtnEl.classList.remove("pressed"); }, 50);
+    }
+    else if ((e.code === "ArrowRight")|| (e.code === "KeyD")) { 
+        moveRight(e);
+        rightBtnEl.classList.add("pressed");
+        setTimeout(function(){ rightBtnEl.classList.remove("pressed"); }, 50);
+    }
 }
 
 /**Enables the controls for the player for starting, resuming or reseting.
@@ -521,6 +538,21 @@ function disableControl() {
     leftBtnEl.removeEventListener('click', moveLeft);
     rightBtnEl.removeEventListener('click', moveRight);
     document.removeEventListener('keyup', buttonMove);
+}
+
+function toggleAudio() {
+    if (themeEl.muted == false) { 
+        themeEl.muted = true
+        themeEl.innerHTML = "🔇"
+        console.log("MUTING 🔇")
+    }
+    else {
+        themeEl.muted = false
+        themeEl.load()
+        themeEl.play()
+        themeEl.innerHTML = "🔊"
+        console.log("UNMUTING 🔊")
+    }
 }
 
 function typeName() {

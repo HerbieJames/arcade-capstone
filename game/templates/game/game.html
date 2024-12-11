@@ -69,26 +69,19 @@
                     </div>
                 {% endfor %}
             </article>
-            {% if is_paginated %}
-                <nav class = "area" aria-label="Page navigation">
-                    <ul class="score-pagination justify-content-center">
-                        {% if page_obj.has_previous %}
-                            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> PREV &raquo;</a></li>
-                        {% endif %}
-                        {% if page_obj.has_next %}
-                            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
-                        {% endif %}
-                    </ul>
-                </nav>
-            {% endif %}
             <!--User Scores End-->
+            <div class = "area game-footer">
+            </div>
+        {% else %}
+            <br>
+            <div class="img-div">
+                <img src = "{% static 'images/dwarf.PNG' %}" alt="">
+                <i class="pitch">Track your highest scores with an account!</i>
+            </div>
         {% endif %}
-        <div class = "area game-footer">
-        </div>
     </div>
 </div>
 <br>
-
 <script src="{% static 'js/tools.js' %}"></script>
 <!--Game Page End-->
 

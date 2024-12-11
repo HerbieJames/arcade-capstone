@@ -10,8 +10,12 @@
 
 {% block header %}
     <!--Frogger Header-->
-    <div class="headerEl">
+    <div id="headerEl">
         <h1>Frogger</h1>
+        <button id="muteBtn" class = "button" onclick="toggleAudio()">🔇 Muted</button>
+        <audio id="themeAudio" muted loop>
+            <source src="{% static 'audio/frogger_theme.mp3' %}" type="audio/mp3">
+        </audio>
     </div>
     <!--Frogger Header End-->
 {% endblock header %}
@@ -21,7 +25,7 @@
     <div id = "gameControllerEl">
         <button class= "button" id="btnLeftEl" onclick="tryStartUp()">←, A</button>
         <div style="display:flex; flex-flow:column; flex: 1 1 0;">
-            <button class= "button" id="btnUpEl" onclick="tryStartUp()">↑, W</button>
+            <button class= "button" id="btnUpEl" onclick="tryStartUp()">↑, W, Space</button>
             <button class= "button" id="btnDownEl" onclick="tryStartUp()">↓, S</button>
         </div>
         <button class= "button" id="btnRightEl" onclick="tryStartUp()">→, D</button>

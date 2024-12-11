@@ -45,12 +45,24 @@
 
 #headerEl {
     display: flex;
-    justify-content: center;
+    flex-flow: row;
+    justify-content: space-between;
     align-items: center;
     height: 100%;
 }
 
+audio {
+    z-index: 3;
+}
+
+#muteBtn {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    margin: 5%;
+}
+
 #headerEl > h1 {
+    margin: 5%;
     color: black;
     text-shadow: 0px 0px 5px white;
 }
@@ -178,14 +190,21 @@
 }
 
 .button {
+    color: black;
     flex: 2 1 0;
     padding: 1%;
     margin: 2px;
     box-shadow: 0px 2px 4px black;
+    transition-duration: 0.05s;
 }
 
-.button1:active, .pressed {
-    background-color: red;
+.button:active, .button:hover, .pressed {
+    background-color: hsl(335, 0%, 90%);
+}
+
+.button:active, .pressed {
+    box-shadow: 0px 0px 4px black;
+    transform: translateY(2px);
   }
 
 .game-scores {
@@ -217,12 +236,6 @@
     font-size: xx-large;
 }
 
-.score-pagination {
-    display: flex;
-    justify-content: space-around;
-    list-style-type: none;
-}
-
 article > h1, .my-date, .my-value, .my-alias {
     margin: 0 1em;
     font-family: var(--font-page);
@@ -234,11 +247,14 @@ article > h1, .my-date, .my-value, .my-alias {
     text-transform: uppercase;
 }
 
-li > a {
-    margin: 2px;
-    padding: 2px;
-    width: 100%;
-    background-color: black;
+.pitch {
+    padding: 1%;
+    background-color: rgba(255,255,255,0.5);
+    font-family: var(--font-game);
+    font-weight: bolder;
+    font-size: smaller;
+    text-align: center;
+    text-shadow: 2px 5px 5px red;
 }
 
 .game-footer {
