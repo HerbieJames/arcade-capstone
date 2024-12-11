@@ -21,9 +21,7 @@
 ### Back-end
 
 ## Technologies
-**8-Bit Painter:**
-
-**pixilart.com:**
+**8-Bit Painter and pixilart.com:**
 
 ## Deployment
 **Going Live (GitHub):**

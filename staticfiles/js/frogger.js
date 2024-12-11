@@ -6,6 +6,7 @@ gridXinit  = 1;
 gridYinit  = 2;
 
 //--SNAKE DECLARATIONS--
+const themeEl    = document.getElementById("themeAudio")
 const upBtnEl    = document.getElementById("btnUpEl");
 const downBtnEl  = document.getElementById("btnDownEl");
 const leftBtnEl  = document.getElementById("btnLeftEl");
@@ -537,6 +538,21 @@ function disableControl() {
     leftBtnEl.removeEventListener('click', moveLeft);
     rightBtnEl.removeEventListener('click', moveRight);
     document.removeEventListener('keyup', buttonMove);
+}
+
+function toggleAudio() {
+    if (themeEl.muted == false) { 
+        themeEl.muted = true
+        themeEl.innerHTML = "🔇"
+        console.log("MUTING 🔇")
+    }
+    else {
+        themeEl.muted = false
+        themeEl.load()
+        themeEl.play()
+        themeEl.innerHTML = "🔊"
+        console.log("UNMUTING 🔊")
+    }
 }
 
 function typeName() {

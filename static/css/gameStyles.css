@@ -45,12 +45,24 @@
 
 #headerEl {
     display: flex;
-    justify-content: center;
+    flex-flow: row;
+    justify-content: space-between;
     align-items: center;
     height: 100%;
 }
 
+audio {
+    z-index: 3;
+}
+
+#muteBtn {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    margin: 5%;
+}
+
 #headerEl > h1 {
+    margin: 5%;
     color: black;
     text-shadow: 0px 0px 5px white;
 }

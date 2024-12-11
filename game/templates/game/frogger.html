@@ -10,8 +10,12 @@
 
 {% block header %}
     <!--Frogger Header-->
-    <div class="headerEl">
+    <div id="headerEl">
         <h1>Frogger</h1>
+        <button id="muteBtn" class = "button" onclick="toggleAudio()">🔇 Muted</button>
+        <audio id="themeAudio" muted loop>
+            <source src="{% static 'audio/frogger_theme.mp3' %}" type="audio/mp3">
+        </audio>
     </div>
     <!--Frogger Header End-->
 {% endblock header %}
