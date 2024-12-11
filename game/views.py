@@ -1,22 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Score
+from .models import Score, GAME
 from .forms import ScoreForm
 
-def clearScore(gameIndex): # summoned on any form submission - to remove redundant data
-    if request.user.is_authenticated: ## target to remove user's worst (undisplayed) scores
-        bottom_scores = Score.objects.order_by("value").filter(player=request.user).filter(game=gameIndex)
-    else:                             ## target to remove worst (undisplayed) guest scores
-        bottom_scores = Score.objects.order_by("value").filter(player__isnull=True).filter(game=gameIndex)
-    
-    all_but_top_seven = Score.objects.order_by("value").filter(score__in=bottom_scores[:(bottom_scores.count()-7)])
-    Score.objects.exclude(all_but_top_seven)
-    
-    ## does not work
-       
-
+def clearScore(request, score): # runs on any form submission - to remove redundant data
+    score.save()
+    for e in GAME:              # executes for each game
+        gameIndex = e[0]
+        if request.user.is_authenticated:  ## target to remove user's worst (undisplayed) scores
+            queryset = Score.objects.order_by("value").filter(player=request.user).filter(game=gameIndex)
+        else:                              ## target to remove worst (undisplayed) guest scores
+            queryset = Score.objects.order_by("value").filter(player__isnull=True).filter(game=gameIndex)
+        if queryset.count() - 7 > 0:
+            all_but_top_seven = Score.objects.order_by("value")[:(queryset.count()-7)]
+            for score in all_but_top_seven:
+                score.delete()
 
 # Create your views here.
 
@@ -50,9 +50,8 @@ def SnakeMachine(request):
             score.game = 1
             if request.user.is_authenticated:
                 score.player = request.user
-            score.save()
-            return HttpResponseRedirect("./")
-        clearScore(1)
+        clearScore(request, score)
+        return HttpResponseRedirect("./")
     
     score_form = ScoreForm()
     
@@ -81,10 +80,9 @@ def FroggerMachine(request):
             score.game = 0
             if request.user.is_authenticated:
                 score.player = request.user
-            score.save()
-            return HttpResponseRedirect("./")
-        clearScore(0)
-    
+        clearScore(request, score)
+        return HttpResponseRedirect("./")
+
     score_form = ScoreForm()
     
     return render(
