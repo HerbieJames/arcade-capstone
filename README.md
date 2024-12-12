@@ -10,9 +10,65 @@ Visitors can interact with classic games adapted to a website in a way that pres
 ## Target Audience
 Recreational users. The websites core functions do not demand the registration of an account, so users can casually try their hand at Frogger and Snake, without needing to provide any personal information.
 
-## Wireframe
+## Wireframes
+<img src = "./staticfiles/images/WireFrameCA.png">
 
-## User Stories
+## Planning and Management
+### Agile Development
+**Project Board:** https://github.com/users/HerbieJames/projects/4
+
+The features of this project were written as User stories, each explicitly outlining how the included feature would amount to an aspect of user experience. The features were categorised within a **M**o**SC**o**W** prioritization, where each was either a **M**ust Have, **S**hould Have, **C**ould Have, or **W**on't have.
+
+### Epic
+The epic constitutes a broader goal, to be accomplished upon the integration of several features from the User Stories.
+
+**Simulate an arcade experience:** "As a user, I want to engage with features that remind me of being at an arcade, so that I can experience a simulation of that experience."
+
+### <span style="color: #BFDADC;">User Stories (Must Have)</span>
+These features are essential for the project.
+
+**View scores by game (Admin):** "As an admin, I want to view scores by game, so that I can understand how well users perform on each game more clearly."
+
+**View scores:** "As a site user/admin, I can view scores on an individual game, so that I can see how well users have done."
+
+**View list of games:** "As a user, I want to view a list of games, so that I can select which game to play."
+
+**View a game machine:** "As a user, I can click on a game, so that I can see if I would want to play that."
+
+**Leave a score on a game:** "As a user, I can leave leave scores on a game, so that I can compete with other players on the game."
+
+**Account registration:** "As a site user, I can register an account, so that I can keep track of my scores, (earn tickets, and keep cosmetic rewards)."
+
+### <span style="color: #C2E0C6;">User Stories (Should Have)</span>
+These features would be prudent for the project.
+
+**Delete scores (Admin):** "As a site admin, I can create, read, update and delete score, so that I can remove offensive aliases, or scores earn't through the use of a cheat, or cheats."
+
+**View user hi-scores for each game beneath each game:** "As a user, I want to see all my placed scores for each game, so that I can view my progress."
+
+**View user hi-score for each game in menu:** "As a user, I want to view my highest score for each game on the home page, so that I can see how good I am at different games."
+
+### <span style="color: #FEF2C0;">User Stories (Could Have)</span>
+These feature would improve the project if they were possible to develop.
+
+**Hear audio responses upon changes within the game:** "As a user, I want to hear sound effects as I play through the games, so that I can intuit changes easier, and enjoy a higher degree of immersion."
+
+<i style="color: rgb(255,128,128);">This feature did not land within the scope of this project's initial development timeframe, and was therefor not implemented.</i>
+
+### <span style="color: #F9D0C4;">User Stories (Won't Have)</span>
+This feature will not be in the final project
+
+**Edit a score:** "As a user, I want to change the alias of one of my scores, so that I can fix mistakes I may have made on submission."
+
+*This feature would have conflicted with the Epic "Simulate an arcade experience"*
+
+**Modify or delete a score from a game:** "As a user, I can modify or delete my score on a game, so that I can changed the alias I assumed when I set that score, or remove the record of that score from the game."
+
+*This feature would have conflicted with the Epic "Simulate an arcade experience"*
+
+**Filter user scores by value or date:** "As a user, I want to filter my list of scores on a game page either by date or value, so that I can alternate between seeing my best ever performances, and seeing my progress."
+
+<i style="color: rgb(255,128,128);">This feature did not land within the scope of this project's initial development timeframe, and was therefor not implemented.</i>
 
 ## Design
 ### Visual
@@ -40,7 +96,7 @@ In producing the audio, several FX such as BitCrusher by Kilohearts were utilize
 ### `Score` Model
 Beyond the User model provided by Django, Score is the only other model utilized in this project. Here. the `player` foreign key is configure unconventionally for omission. An `alias` field is included to allow guest users to leave their mark on the machines. 
 
-<img src = "./staticfiles/images/schemaCA.png">
+<img src = "./staticfiles/images/SchemaCA.png">
 
 ### `ClearScore` Method
 In a seperate file titles methods.py, ClearScore is written to be called on submission of any new record, following the submission of said record. This method ensures no erroneous scores are written to the database, and removes and scores pre-existing scores which may have become erroneous by the inclusion of said new record. An erroneous score is categorised as any record which, among all records of any set game value and set player value (even null), falls outside of the top 7 highest scores in said queryset. It also deletes all scores of "000000" entirely from the database.
