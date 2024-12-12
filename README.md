@@ -34,7 +34,31 @@ In producing the audio, several FX such as BitCrusher by Kilohearts were utilize
 ### Back-end
 **HTML:** Page breaks and DOM manipulation are employed to replicate the effects of using CSS grid for in any event of the styles not loading as they should do.
 
-**Python:** A `ClearScore` method was written to routinely scrape the database of any erroneous game scores that would no longer need to be stored, such as low scores set by guest users of the arcade machines.
+**Python:** A `ClearScore` method was written to routinely scrape the database of any erroneous game scores that would no longer need to be stored, such as low scores set by guest users of the arcade machines. This has made the project capable of recieving and storing scores from users without an account, which plays a vital role in the user experience.
+
+## Models and Methods
+### `Score` Model
+Beyond the User model provided by Django, Score is the only other model utilized in this project. Here. the `player` foreign key is configure unconventionally for omission. An `alias` field is included to allow guest users to leave their mark on the machines. 
+
+<img src = "./staticfiles/images/schemaCA.png">
+
+### `ClearScore` Method
+In a seperate file titles methods.py, ClearScore is written to be called on submission of any new record, following the submission of said record. This method ensures no erroneous scores are written to the database, and removes and scores pre-existing scores which may have become erroneous by the inclusion of said new record. An erroneous score is categorised as any record which, among all records of any set game value and set player value (even null), falls outside of the top 7 highest scores in said queryset. It also deletes all scores of "000000" entirely from the database.
+```
+def clearScore(request, score):  # runs on any form submission - to remove redundant data
+    for e in GAME:               # executes for each game
+        gameIndex = e[0]
+        if request.user.is_authenticated:  # target to remove user's worst (undisplayed) scores
+            queryset = Score.objects.order_by("value").filter(player=request.user).filter(game=gameIndex)
+        else:                              # target to remove worst (undisplayed) guest scores
+            queryset = Score.objects.order_by("value").filter(player__isnull=True).filter(game=gameIndex)
+        if queryset.count() - 7 > 0:
+            all_but_top_seven = Score.objects.order_by("value")[:(queryset.count()-7)]
+            for score in all_but_top_seven:
+                score.delete()
+    zero_scores = Score.objects.filter(value="000000")
+    zero_scores.delete()
+```
 
 ## Technologies
 **8-Bit Painter and http://pixilart.com/draw:** This IOS and website (respectively) was chosen to create the artwork seen in the games. I opted for a very small resolution of 16x16 so that the sprites would not be challenging for me to create. These tools are designed for drawing at small resolutions.
