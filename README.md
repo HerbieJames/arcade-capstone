@@ -209,3 +209,5 @@ All of these tools made downloading the produced works straight-forward and pain
 **Python Validator:** https://pep8ci.herokuapp.com/
 
 **Background Image:** https://lunacityarcade.com/images/IMGP9846.JPG
+
+All otherwise unmentioned art, sound, design and programming by Herbie James
