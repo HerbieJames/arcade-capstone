@@ -13,7 +13,7 @@
     <div id="headerEl">
         <h1>Frogger</h1>
         <button id="muteBtn" class = "button" onclick="toggleAudio()">🔇 Muted</button>
-        <audio id="themeAudio" muted loop>
+        <audio id="themeAudio" muted loop preload="auto">
             <source src="{% static 'audio/frogger_theme.mp3' %}" type="audio/mp3">
         </audio>
     </div>
@@ -30,7 +30,7 @@
         </div>
         <button class= "button" id="btnRightEl" onclick="tryStartUp()">→, D</button>
     </div>
-    <audio id="endAudio" muted>
+    <audio id="endAudio" muted preload="auto">
         <source src="{% static 'audio/frogger_end.mp3' %}" type="audio/mp3">
     </audio>
     <script src="{% static 'js/frogger.js' %}" defer></script>
