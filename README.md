@@ -1,8 +1,12 @@
 # Capstone Arcade
 **Live link:** https://capstone-arcade-5a9455ce2843.herokuapp.com/
 
+<img src = "./staticfiles/images/screenshotCA2.png">
+
 ## Overview
 Capstone Arcade attempts to use CSS Grid to arrange and display fully responsive replications of classic games, programmed in Javascript, within the theme of an old amusement arcade.
+
+<img src = "./staticfiles/images/screenshotCA9.png">
 
 ## Purpose
 Visitors can interact with classic games adapted to a website in a way that preserves the feel of visiting an old-school, 80s amusement arcade.
@@ -19,10 +23,13 @@ Recreational users. The websites core functions do not demand the registration o
 
 The features of this project were written as User stories, each explicitly outlining how the included feature would amount to an aspect of user experience. The features were categorised within a **M**o**SC**o**W** prioritization, where each was either a **M**ust Have, **S**hould Have, **C**ould Have, or **W**on't have.
 
-### Epic
+### <span style="color: #0052cc;">Epic</span>
 The epic constitutes a broader goal, to be accomplished upon the integration of several features from the User Stories.
 
 **Simulate an arcade experience:** "As a user, I want to engage with features that remind me of being at an arcade, so that I can experience a simulation of that experience."
+
+<img src = "./staticfiles/images/screenshotCA.png" style="box-shadow: 0px 0px 20px #0052cc;">
+<div style="height:1em"></div>
 
 ### <span style="color: #BFDADC;">User Stories (Must Have)</span>
 These features are essential for the project.
@@ -33,11 +40,20 @@ These features are essential for the project.
 
 **View list of games:** "As a user, I want to view a list of games, so that I can select which game to play."
 
+<img src = "./staticfiles/images/screenshotCA3.png" style="box-shadow: 0px 0px 20px #BFDADC;">
+<div style="height:1em"></div>
+
 **View a game machine:** "As a user, I can click on a game, so that I can see if I would want to play that."
 
 **Leave a score on a game:** "As a user, I can leave leave scores on a game, so that I can compete with other players on the game."
 
+<img src = "./staticfiles/images/screenshotCA5.png" style="box-shadow: 0px 0px 20px #BFDADC;">
+<div style="height:1em"></div>
+
 **Account registration:** "As a site user, I can register an account, so that I can keep track of my scores, (earn tickets, and keep cosmetic rewards)."
+
+<img src = "./staticfiles/images/screenshotCA6.png" style="box-shadow: 0px 0px 20px #BFDADC;">
+<div style="height:1em"></div>
 
 ### <span style="color: #C2E0C6;">User Stories (Should Have)</span>
 These features would be prudent for the project.
@@ -46,7 +62,13 @@ These features would be prudent for the project.
 
 **View user hi-scores for each game beneath each game:** "As a user, I want to see all my placed scores for each game, so that I can view my progress."
 
+<img src = "./staticfiles/images/screenshotCA7.png" style="box-shadow: 0px 0px 20px #C2E0C6;">
+<div style="height:1em"></div>
+
 **View user hi-score for each game in menu:** "As a user, I want to view my highest score for each game on the home page, so that I can see how good I am at different games."
+
+<img src = "./staticfiles/images/screenshotCA4.png" style="box-shadow: 0px 0px 20px #C2E0C6;">
+<div style="height:1em"></div>
 
 ### <span style="color: #FEF2C0;">User Stories (Could Have)</span>
 These feature would improve the project if they were possible to develop.
@@ -80,15 +102,25 @@ In producing the audio, several FX such as BitCrusher by Kilohearts were utilize
 ### Game
 **Snake:** Upon reaching an exceptionally high score in Snake, the level becomes staged, and is reset with the introduction of random walls which will kill the player if collided into. This was a creative way to reward the player for become almost too long to be avoidable anymore, and a way to keep the gameplay endless while not compromising on the experience of being able to grow unreasonable long.
 
+<img src = "./staticfiles/gifs/snake_thumb.gif" style="height: 184px; position: relative; left: calc(50% - 92px)">
+<div style="height:1em"></div>
+
 **Frogger:** The first stage introduces the player to the controls in a non-lethal way, often generating a 1-up in the form of a fly. This makes the player feel comfortable and capable with the game. The second stage consists exclusively of grass and logs, while the third of grass and road. This introduces the player to each threat type seperately, allowing them to become familiar with the game's mechanics, and draws out these levels into a rich tutorial, complete with level 4 as the first introduction of both threat types together.
+
+<img src = "./staticfiles/gifs/frogger_thumb.gif" style="height: 184px; position: relative; left: calc(50% - 92px)">
+<div style="height:1em"></div>
 
 **Beginner's Immunity:** In Snake, the player is unable to collide with themselves until they have consumed two apples and grown to a length of 5. Likewise, with Frogger, the player is unkillable until they have navigated the trivial obstacles and proceeded to the next stage. This simple consitency provides a degree of procedure before any score may be set on the site by any user.
 
 ### Interactivity
 **Game Pad:** For the controls, each game accepts several options for keyboard inputs (i.e. WASD or Arrow Keys), but an array of buttons is also displayed for mobile use. Regardless of input type, the CSS will update on these displayed buttons. This adds another degree of interactivity for users when playing with the keyboard.
 
+<img src = "./staticfiles/gifs/game_pad.gif" style="height: 184px; position: relative; left: calc(50% - 92px)">
+<div style="height:1em"></div>
 ### Back-end
 **HTML:** Page breaks and DOM manipulation are employed to replicate the effects of using CSS grid for in any event of the styles not loading as they should do.
+
+<img src = "./staticfiles/images/screenshotCAA.png">
 
 **Python:** A `ClearScore` method was written to routinely scrape the database of any erroneous game scores that would no longer need to be stored, such as low scores set by guest users of the arcade machines. This has made the project capable of recieving and storing scores from users without an account, which plays a vital role in the user experience.
 
@@ -136,6 +168,8 @@ All of these tools made downloading the produced works straight-forward and pain
 **Google Chrome:** With the browser's Dev Tools, I have been able to assess the site's development across a complete range of viewport dimensions, and zoom settings. Furthermore, the tools open up individual element assessment, which has proven extremely important in this project, as so much of the javascript manipulates element positions in the DOM, and element styles.
 
 **Django Debugging:** In using `config -> settings.py -> DEBUG = True ? False`, Django opens up an array of debugging tools with comprehensive error messaging with traceback. I used `DEBUG = TRUE` for creating the custom method `game -> methods.py -> clearScore`, and for configuring Django views, templates, models, forms and urls.`DEBUG` was set to `False` before every deployment.
+
+**console.log (Javascript):** For complex inter-connected methods such as the ones used in frogger, robust use of console.log for displaying randomly generated data has been vital to configure the functions there, and for identifying where errors have occured. Crutially for this project, the ability to log a live node to the console has been exceptional.
 
 ## Validation
 ### HTML Validation (Git Hash: *f9803fcd5fbd0eb9c35227b32ba9dbdbbf7f1855*)
