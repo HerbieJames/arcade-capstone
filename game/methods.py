@@ -12,4 +12,6 @@ def clearScore(request, score):  # runs on any form submission - to remove redun
         if queryset.count() - 7 > 0:
             all_but_top_seven = Score.objects.order_by("value")[:(queryset.count()-7)]
             for score in all_but_top_seven:
-                score.delete()     
+                score.delete()
+    zero_scores = Score.objects.filter(value="000000")
+    zero_scores.delete()
