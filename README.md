@@ -117,6 +117,7 @@ In producing the audio, several FX such as BitCrusher by Kilohearts were utilize
 
 <img src = "./staticfiles/gifs/game_pad.gif" style="height: 184px; position: relative; left: calc(50% - 92px)">
 <div style="height:1em"></div>
+
 ### Back-end
 **HTML:** Page breaks and DOM manipulation are employed to replicate the effects of using CSS grid for in any event of the styles not loading as they should do.
 
@@ -209,3 +210,5 @@ All of these tools made downloading the produced works straight-forward and pain
 **Python Validator:** https://pep8ci.herokuapp.com/
 
 **Background Image:** https://lunacityarcade.com/images/IMGP9846.JPG
+
+All otherwise unmentioned art, sound, design and programming by Herbie James
