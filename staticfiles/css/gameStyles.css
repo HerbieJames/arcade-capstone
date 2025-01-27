@@ -247,6 +247,39 @@ article > h1, .my-date, .my-value, .my-alias {
     text-transform: uppercase;
 }
 
+.my-btn {
+    margin-left: 0.5em;
+    width: 2.5em;
+    height: 100%;
+}
+
+.modal {
+    position: fixed;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: centre;
+    bottom: 0;
+    margin: 1rem 0;
+    height: 3rem;
+    width: 100vw;
+}
+
+.modal > p {
+    display: flex;
+    align-items: center;
+    justify-content: centre;
+    height: 100%;
+    margin: 0 auto;
+    background-color: black;
+}
+
+.modal > p > span {
+    margin: 0 1rem;
+    font-size: larger;
+    color: white;
+}
+
 .pitch {
     padding: 1%;
     background-color: rgba(255,255,255,0.5);

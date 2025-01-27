@@ -64,7 +64,11 @@
                         <p class="my-date">{{score.created_on|truncatechars:12}}</p>
                         <p class="my-instance">
                             <span class="my-value">{{score.value}}</span>
-                            <span class="my-alias">{{score.alias}}</span>
+                            <span class="my-alias">
+                                <span>{{score.alias}}</span>
+                                <button class="my-btn">✏</button>
+                                <button class="my-btn">❌</button>
+                            </span>
                         </p>
                     </div>
                 {% endfor %}
@@ -79,6 +83,16 @@
                 <i class="pitch">Track your highest scores with an account!</i>
             </div>
         {% endif %}
+    </div>
+</div>
+<div class="modal-container">
+    <div class="modal">
+        <p>
+            <span>
+                <b>Score Added:</b>
+            </span>
+            <span> Sample Score<!--DTL--> </span>
+        </p>
     </div>
 </div>
 <br>
