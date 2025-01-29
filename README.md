@@ -176,25 +176,25 @@ All of these tools made downloading the produced works straight-forward and pain
 
 | User Stories | Tested | Works as Intended |
 |:---|:---:|:---|
-|View list of games|||
-|View game machines|||
-|View global scores|||
-|Account registration|||
-|Leave a score on a game|||
-|View user high score for each game in menu|||
-|View user high score for each game beneath game display|||
-|Play Snake|||
-|Play Frogger|||
-|Search scores by alias (Admin)|||
-|View scores by game (Admin)|||
-|Delete Scores (Admin)|||
-|Automatically delete records|||
-|Simulate an arcade experience (Epic)|||
-|New score notification|||
-|Edit score alias (User)|||
-|Delete score (User)|||
-|Edit score notification|||
-|Delete score notification|||
+|View list of games|✅|✅|
+|View game machines|✅|✅|
+|View global scores|✅|✅|
+|Account registration|✅|✅|
+|Leave a score on a game|✅|✅|
+|View user high score for each game in menu|✅|✅|
+|View user high score for each game beneath game display|✅|✅|
+|Play Snake|✅|✅|
+|Play Frogger|✅|✅|
+|Search scores by alias (Admin)|✅|✅|
+|View scores by game (Admin)|✅|✅|
+|Delete Scores (Admin)|✅|✅|
+|Automatically delete records|✅|✅|
+|Simulate an arcade experience (Epic)||✅|
+|New score notification|✅|✅|
+|Edit score alias (User)|✅|✅|
+|Delete score (User)|✅|✅|
+|Edit score notification|✅|✅|
+|Delete score notification|✅|✅|
 
 ## Validation
 ### HTML Validation (Git Hash: *f9803fcd5fbd0eb9c35227b32ba9dbdbbf7f1855*)
