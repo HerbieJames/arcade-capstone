@@ -37,7 +37,7 @@ def score_edit(request, score_id):
         if score_form.is_valid() and score.player == request.user:
             score = score_form.save(commit=False)
             score.save()
-            messages.add_message(request, messages.SUCCESS, 'Score Updated.')
+            messages.add_message(request, messages.SUCCESS, f"{score.value} set by {score.alias} editted.")
         else:
             messages.add_message(request, messages.ERROR, 'Error updating score.')
 
@@ -57,7 +57,7 @@ def score_delete(request, score_id):
 
     if score.player == request.user:
         score.delete()
-        messages.add_message(request, messages.SUCCESS, 'Score deleted.')
+        messages.add_message(request, messages.SUCCESS, f"{score.value} set by {score.alias} deleted.")
     else:
         messages.add_message(request, messages.ERROR, 'You can only delete your own scores.')
 
@@ -82,7 +82,7 @@ def SnakeMachine(request):
             if request.user.is_authenticated:
                 score.player = request.user
             score.save()
-            messages.success(request, "Score was added.")
+            messages.success(request, f"{score.value} set by {score.alias} added.")
         clearScore(request, score)
         return redirect("snake")
     
@@ -114,7 +114,7 @@ def FroggerMachine(request):
             if request.user.is_authenticated:
                 score.player = request.user
             score.save()
-            messages.success(request, "Score was added.")
+            messages.success(request, f"{score.value} set by {score.alias} added.")
         clearScore(request, score)
         return redirect("frogger")
 

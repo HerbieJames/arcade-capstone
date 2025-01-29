@@ -52,6 +52,31 @@
 
         {% endblock content %}
         <!--Page Content End-->
+
+        {% if messages %}
+            <div id="modal-container">
+                <div class="modal">
+                    <p>
+                        {% for message in messages %}
+                            <span>{{message}}</span>
+                        {% endfor %}
+                        <button onclick="closeModal()">Close</button>
+                    </p>
+                </div>
+            </div>
+
+            <script>
+                let modalEl = document.getElementById("modal-container");
+                function closeModal() {
+                    if (modalEl.style.display=="none") {}
+                    else {
+                        modalEl.style.display="none"
+                        console.log("Modal closed")
+                    }
+                }
+            </script>
+        {% endif %}
+
         <footer>
             <p>Capstone Arcade - created by <a href="https://github.com/HerbieJames">Herbie James</a><p>
         </footer>
@@ -59,7 +84,6 @@
 
     {% block extras %}
     {% endblock extras %}
-
 </body>
 <!--* Shell End-->
 </html>
