@@ -172,6 +172,30 @@ All of these tools made downloading the produced works straight-forward and pain
 
 **console.log (Javascript):** For complex inter-connected methods such as the ones used in frogger, robust use of console.log for displaying randomly generated data has been vital to configure the functions there, and for identifying where errors have occured. Crutially for this project, the ability to log a live node to the console has been exceptional.
 
+### User Stories Testing
+
+| User Stories | Tested | Works as Intended |
+|:---|:---:|:---|
+|View list of games|||
+|View game machines|||
+|View global scores|||
+|Account registration|||
+|Leave a score on a game|||
+|View user high score for each game in menu|||
+|View user high score for each game beneath game display|||
+|Play Snake|||
+|Play Frogger|||
+|Search scores by alias (Admin)|||
+|View scores by game (Admin)|||
+|Delete Scores (Admin)|||
+|Automatically delete records|||
+|Simulate an arcade experience (Epic)|||
+|New score notification|||
+|Edit score alias (User)|||
+|Delete score (User)|||
+|Edit score notification|||
+|Delete score notification|||
+
 ## Validation
 ### HTML Validation (Git Hash: *f9803fcd5fbd0eb9c35227b32ba9dbdbbf7f1855*)
 **"The element `label` must not appear as a descendant of the `a` element." (*base.html -> lines 27, 35, 39, and 42*):** This would require refactoring the label elements to something else. I chose span as another simple inline element.
