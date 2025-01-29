@@ -593,7 +593,9 @@ function endGame() {
     txt.style.gridRowStart    = gridYinit;
     txt.style.gridRowEnd      = gridY;
     txt.style.justifyContent  = "center"
-    player.remove();
+    if (player) {
+        player.remove();
+    }
     clearLvl();
     themeEl.pause();
     themeEl.currentTime = 0;

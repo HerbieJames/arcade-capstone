@@ -139,7 +139,9 @@ function clearLvl() {
     speed = maxSpeed - score/100
     if (speed < 300) { speed = 300 }
     console.log("speed:", speed);
-    player.remove();
+    if (player) {
+        player.remove();
+    }
     player = undefined;
     snakeBody.forEach((element) => {
         element.remove();

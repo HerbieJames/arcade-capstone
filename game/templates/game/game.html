@@ -63,11 +63,11 @@
                     <div class = "my-card">
                         <p class="my-date">{{score.created_on|truncatechars:12}}</p>
                         <p class="my-instance">
-                            <span class="my-value">{{score.value}}</span>
+                            <span id="value{{ score.id }}" class="my-value">{{score.value}}</span>
                             <span class="my-alias">
-                                <span>{{score.alias}}</span>
-                                <button class="my-btn btn-edit" score_id="{{ score.id }}">✏</button>
-                                <button class="my-btn">❌</button>
+                                <span id="score{{ score.id }}" >{{score.alias}}</span>
+                                <button class="my-btn btn-edit" score_id="{{ score.id }}" href="#page-top">✏</button>
+                                <button class="my-btn btn-delete" score_id="{{ score.id }}" href="#page-top">❌</button>
                             </span>
                         </p>
                     </div>
