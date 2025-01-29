@@ -68,7 +68,7 @@ def score_delete(request, score_id):
 
 
 def SnakeMachine(request):
-    queryset = Score.objects.filter(game=1).order_by("-value")
+    queryset = Score.objects.filter(game=1).order_by("-alias").order_by("-value")
     if request.user.is_authenticated:
         my_scores = Score.objects.filter(player=request.user).filter(game=1).order_by("-value")
     else:
@@ -99,7 +99,7 @@ def SnakeMachine(request):
 
 
 def FroggerMachine(request):
-    queryset = Score.objects.filter(game=0).order_by("-value")
+    queryset = Score.objects.filter(game=0).order_by("-alias").order_by("-value")
     if request.user.is_authenticated:
         my_scores = Score.objects.filter(player=request.user).filter(game=0).order_by("-value")
     else:
