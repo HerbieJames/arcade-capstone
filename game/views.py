@@ -82,8 +82,9 @@ def SnakeMachine(request):
             if request.user.is_authenticated:
                 score.player = request.user
             score.save()
+            messages.success(request, "Score was added.")
         clearScore(request, score)
-        return HttpResponseRedirect("./")
+        return redirect("snake")
     
     score_form = ScoreForm()
     
@@ -113,8 +114,9 @@ def FroggerMachine(request):
             if request.user.is_authenticated:
                 score.player = request.user
             score.save()
+            messages.success(request, "Score was added.")
         clearScore(request, score)
-        return HttpResponseRedirect("./")
+        return redirect("frogger")
 
     score_form = ScoreForm()
     
