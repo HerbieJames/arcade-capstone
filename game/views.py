@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, reverse
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Score, GAME
 from .forms import ScoreForm
@@ -22,6 +23,25 @@ def GameList(request):
             "my_frogger" : my_frogger
         },
     )
+
+def score_edit(request, score_id):
+    """
+    view to edit scores
+    """
+    if request.method == "POST":
+
+        queryset = Score.objects.order_by("-value")
+        score = get_object_or_404(Score, pk=score_id)
+        score_form = ScoreForm(data=request.POST, instance=score)
+
+        if score_form.is_valid():
+            score = score_form.save(commit=False)
+            score.save()
+            messages.add_message(request, messages.SUCCESS, 'Score Updated.')
+        else:
+            messages.add_message(request, messages.ERROR, 'Error updating score.')
+
+    return HttpResponseRedirect("./")
 
 def SnakeMachine(request):
     queryset = Score.objects.filter(game=1).order_by("-value")
