@@ -570,6 +570,12 @@ function tryAgain(e) {
     console.log(e.code)
     if (e.code == "Escape") {
         document.removeEventListener('keyup', tryAgain);
+        scoreEl.setAttribute("value", "000000");
+        document.getElementById("id_alias").setAttribute("value", "AAAAAA");
+        document.getElementById("id_alias").innerHTML = "AAAAAA";
+        document.getElementById("id_alias").disabled = false;
+        document.getElementById("submitBtnEl").innerText = "Insert Name";
+        document.getElementById("gameDisplayEl").removeAttribute("action");
         hiScoreEl.style.display  = "inline";
         startBtnEl.style.display = "flex";
         nameEl.style.display     = "none";
@@ -593,7 +599,9 @@ function endGame() {
     txt.style.gridRowStart    = gridYinit;
     txt.style.gridRowEnd      = gridY;
     txt.style.justifyContent  = "center"
-    player.remove();
+    if (player) {
+        player.remove();
+    }
     clearLvl();
     themeEl.pause();
     themeEl.currentTime = 0;
@@ -612,6 +620,7 @@ function startUp() {
         score = 0;
         hiScoreEl.style.display = "none";
         scoreEl = document.getElementById('id_value');
+        console.log(scoreEl);
         scoreEl.classList.add(`score-area`);
         scoreEl.style.display = "block"
         initPlayer();

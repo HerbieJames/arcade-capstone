@@ -139,7 +139,9 @@ function clearLvl() {
     speed = maxSpeed - score/100
     if (speed < 300) { speed = 300 }
     console.log("speed:", speed);
-    player.remove();
+    if (player) {
+        player.remove();
+    }
     player = undefined;
     snakeBody.forEach((element) => {
         element.remove();
@@ -305,6 +307,12 @@ function typeName() {
 function tryAgain(e) {
     if (e.code == "Escape") {
         document.removeEventListener('keyup', tryAgain);
+        scoreEl.setAttribute("value", "000000");
+        document.getElementById("id_alias").setAttribute("value", "AAAAAA");
+        document.getElementById("id_alias").innerHTML = "AAAAAA";
+        document.getElementById("id_alias").disabled = false;
+        document.getElementById("submitBtnEl").innerText = "Insert Name";
+        document.getElementById("gameDisplayEl").removeAttribute("action");
         hiScoreEl.style.display  = "inline";
         startBtnEl.style.display = "flex";
         nameEl.style.display     = "none";

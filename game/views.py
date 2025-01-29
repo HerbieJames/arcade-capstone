@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Score, GAME
 from .forms import ScoreForm
@@ -23,8 +24,51 @@ def GameList(request):
         },
     )
 
+def score_edit(request, score_id):
+    """
+    view to edit scores
+    """
+    if request.method == "POST":
+
+        queryset = Score.objects.order_by("-value")
+        score = get_object_or_404(Score, pk=score_id)
+        score_form = ScoreForm(data=request.POST, instance=score)
+
+        if score_form.is_valid() and score.player == request.user:
+            score = score_form.save(commit=False)
+            score.save()
+            messages.add_message(request, messages.SUCCESS, f"{score.value} set by {score.alias} editted.")
+        else:
+            messages.add_message(request, messages.ERROR, 'Error updating score.')
+
+        if score.game == 0:
+            return redirect("frogger")
+        else:
+            return redirect("snake")
+
+
+def score_delete(request, score_id):
+    """
+    view to delete score
+    """
+    queryset = Score.objects.order_by("-value")
+    score = get_object_or_404(Score, pk=score_id)
+    score_form = ScoreForm(data=request.POST, instance=score)
+
+    if score.player == request.user:
+        score.delete()
+        messages.add_message(request, messages.SUCCESS, f"{score.value} set by {score.alias} deleted.")
+    else:
+        messages.add_message(request, messages.ERROR, 'You can only delete your own scores.')
+
+    if score.game == 0:
+        return redirect("frogger")
+    else:
+        return redirect("snake")
+
+
 def SnakeMachine(request):
-    queryset = Score.objects.filter(game=1).order_by("-value")
+    queryset = Score.objects.filter(game=1).order_by("-alias").order_by("-value")
     if request.user.is_authenticated:
         my_scores = Score.objects.filter(player=request.user).filter(game=1).order_by("-value")
     else:
@@ -38,8 +82,9 @@ def SnakeMachine(request):
             if request.user.is_authenticated:
                 score.player = request.user
             score.save()
+            messages.success(request, f"{score.value} set by {score.alias} added.")
         clearScore(request, score)
-        return HttpResponseRedirect("./")
+        return redirect("snake")
     
     score_form = ScoreForm()
     
@@ -55,7 +100,7 @@ def SnakeMachine(request):
 
 
 def FroggerMachine(request):
-    queryset = Score.objects.filter(game=0).order_by("-value")
+    queryset = Score.objects.filter(game=0).order_by("-alias").order_by("-value")
     if request.user.is_authenticated:
         my_scores = Score.objects.filter(player=request.user).filter(game=0).order_by("-value")
     else:
@@ -69,8 +114,9 @@ def FroggerMachine(request):
             if request.user.is_authenticated:
                 score.player = request.user
             score.save()
+            messages.success(request, f"{score.value} set by {score.alias} added.")
         clearScore(request, score)
-        return HttpResponseRedirect("./")
+        return redirect("frogger")
 
     score_form = ScoreForm()
     
