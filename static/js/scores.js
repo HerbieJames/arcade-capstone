@@ -38,6 +38,8 @@ for (let button of deleteButtons) {
       let scoreId = e.target.getAttribute("score_id");
       let scoreAlias = document.getElementById(`score${scoreId}`).innerText;
       let scoreValue = document.getElementById(`value${scoreId}`).innerText;
+      startUp();
+      endGame();
       document.getElementById("id_alias").setAttribute("value", scoreAlias);
       document.getElementById("id_alias").disabled = true;
       document.getElementById("id_value").setAttribute("value", scoreValue);
@@ -45,8 +47,6 @@ for (let button of deleteButtons) {
       console.log("ID:",scoreId);
       console.log("Alias:",scoreAlias);
       submitButton.innerText = "Delete";
-      startUp();
-      endGame();
       document.getElementById("gameOverEl").innerHTML = "DELETE SCORE"
       document.getElementById("retryTxt").innerHTML = "PRESS ESC TO CANCEL"
   
